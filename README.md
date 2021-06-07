@@ -25,7 +25,14 @@ optimizer:
   lr: 5e-4
   weight_decay: 1e-4
 scheduler:
-  is_cycle: True
+  type: "CircularLRBeta"
+  lr_max: 5e-4
+  lr_divider: 10
+  cut_point: 10
+  step_size: 834
+  momentum:
+    - 0.95
+    - 0.85
 
 data:
   train:
@@ -82,9 +89,8 @@ checkpoint: ""
 
 ### scheduler
 
-*업데이트 필요*
-
-- is_cycle : True일 때 CircularLRBeta, False일 때 StepLR Scheduler로 동작.
+- type : 학습에 사용될 scheduler
+- others : scheduler 생성시 arguments로 전달될 인자
 
 ### data
 
@@ -133,13 +139,13 @@ checkpoint: ""
 
 ## TODO
 
-- [x]  Wandb 연동
-- [ ]  Wandb에 config.yaml, checkpoint.pth 파일 업로드
-- [ ]  Epoch / Step Scheduler 구별
-- [x]  token_to_id, id_to_token → Tokenizer 클래스로 분리해서 사용 → 프로젝트 때 API나 Inference 시에 사용해야하므로 dataset에 종속되게 구현하는 것보다 따로 떼어내서 사용하는 것이 용이함.
-- [x]  Albumentation transfrom 구현
+- [x]  ~~Wandb 연동~~
+- [x]  ~~Wandb에 config.yaml, checkpoint.pth 파일 업로드~~
+- [x]  ~~Epoch / Step Scheduler 구별~~
+- [x]  ~~token_to_id, id_to_token → Tokenizer 클래스로 분리해서 사용 → 프로젝트 때 API나 Inference 시에 사용해야하므로 dataset에 종속되게 구현하는 것보다 따로 떼어내서 사용하는 것이 용이함.~~
+- [x]  ~~Albumentation transfrom 구현~~
 - [ ]  loss function → ignore index 추가 → id_to_string 함수 수정 필요
-- [x]  PAD 토큰을 -1로 변환하는 코드(355라인 in train.py) 제거 → id_to_string에서는 PAD 토큰이 무엇인지 몰라서 -1로 변한
+- [x]  ~~PAD 토큰을 -1로 변환하는 코드(355라인 in train.py) 제거 → id_to_string에서는 PAD 토큰이 무엇인지 몰라서 -1로 변한~~
 - [ ]  run_epoch 코드 수정
-- [ ]  Inference 코드도 맞게 수정
+- [x]  ~~Inference 코드도 맞게 수정~~
 - [ ]  API 코드 구현
