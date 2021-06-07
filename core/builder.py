@@ -1,5 +1,6 @@
 # models
 from .build.model import Attention
+from .build.model import SATRN
 
 # losses
 from torch.nn import CrossEntropyLoss
@@ -13,6 +14,7 @@ from .build.scheduler import CircularLRBeta
 
 model_list = {
     "Attention": Attention,
+    "SATRN": SATRN
 }
 
 loss_list = {

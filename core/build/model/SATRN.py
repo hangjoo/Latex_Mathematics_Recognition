@@ -1,7 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import numpy as np
 import math
 import random
 
@@ -237,7 +235,7 @@ class PositionalEncoding2D(nn.Module):
         return position_encoder  # (Max_len, In_channel)
 
     def forward(self, input):
-        ### Require DEBUG
+        # Require DEBUG
         b, c, h, w = input.size()
         h_pos_encoding = self.h_position_encoder[:h, :].unsqueeze(1).to(input.get_device())
         h_pos_encoding = self.h_linear(h_pos_encoding)  # [H, 1, D]
@@ -306,7 +304,7 @@ class TransformerDecoderLayer(nn.Module):
 
     def forward(self, tgt, tgt_prev, src, tgt_mask):
 
-        if tgt_prev == None:  # Train
+        if tgt_prev is None:  # Train
             att = self.self_attention_layer(tgt, tgt, tgt, tgt_mask)
             out = self.self_attention_norm(att + tgt)
 
@@ -419,9 +417,9 @@ class TransformerDecoder(nn.Module):
                 tgt = self.pos_encoder(tgt, point=t)
                 tgt_mask = self.order_mask(t + 1)
                 tgt_mask = tgt_mask[:, -1].unsqueeze(1)  # [1, (l+1)]
-                for l, layer in enumerate(self.attention_layers):
-                    tgt = layer(tgt, features[l], src, tgt_mask)
-                    features[l] = tgt if features[l] == None else torch.cat([features[l], tgt], 1)
+                for i, layer in enumerate(self.attention_layers):
+                    tgt = layer(tgt, features[i], src, tgt_mask)
+                    features[i] = tgt if features[i] is None else torch.cat([features[i], tgt], 1)
 
                 _out = self.generator(tgt)  # [b, 1, c]
                 target = torch.argmax(_out[:, -1:, :], dim=-1)  # [b, 1]
@@ -435,34 +433,30 @@ class TransformerDecoder(nn.Module):
 
 
 class SATRN(nn.Module):
-    def __init__(self, FLAGS, train_dataset, checkpoint=None):
+    # def __init__(self, FLAGS, train_dataset, checkpoint=None):
+    def __init__(self, config, tokenizer):
         super(SATRN, self).__init__()
 
         self.encoder = TransformerEncoderFor2DFeatures(
-            input_size=FLAGS.data.rgb,
-            hidden_dim=FLAGS.SATRN.encoder.hidden_dim,
-            filter_size=FLAGS.SATRN.encoder.filter_dim,
-            head_num=FLAGS.SATRN.encoder.head_num,
-            layer_num=FLAGS.SATRN.encoder.layer_num,
-            dropout_rate=FLAGS.dropout_rate,
+            input_size=3 if config.data.rgb else 1,
+            hidden_dim=config.model.encoder.hidden_dim,
+            filter_size=config.model.encoder.filter_dim,
+            head_num=config.model.encoder.head_num,
+            layer_num=config.model.encoder.layer_num,
+            dropout_rate=config.model.dropout_rate,
         )
 
         self.decoder = TransformerDecoder(
-            num_classes=len(train_dataset.id_to_token),
-            src_dim=FLAGS.SATRN.decoder.src_dim,
-            hidden_dim=FLAGS.SATRN.decoder.hidden_dim,
-            filter_dim=FLAGS.SATRN.decoder.filter_dim,
-            head_num=FLAGS.SATRN.decoder.head_num,
-            dropout_rate=FLAGS.dropout_rate,
-            pad_id=train_dataset.token_to_id[PAD],
-            st_id=train_dataset.token_to_id[START],
-            layer_num=FLAGS.SATRN.decoder.layer_num,
+            num_classes=len(tokenizer.id_to_token),
+            src_dim=config.model.decoder.src_dim,
+            hidden_dim=config.model.decoder.hidden_dim,
+            filter_dim=config.model.decoder.filter_dim,
+            head_num=config.model.decoder.head_num,
+            dropout_rate=config.model.dropout_rate,
+            pad_id=tokenizer.token_to_id[tokenizer.PAD_TOKEN],
+            st_id=tokenizer.token_to_id[tokenizer.START_TOKEN],
+            layer_num=config.model.decoder.layer_num,
         )
-
-        self.criterion = nn.CrossEntropyLoss()  # without ignore_index=train_dataset.token_to_id[PAD]
-
-        if checkpoint:
-            self.load_state_dict(checkpoint)
 
     def forward(self, input, expected, is_train, teacher_forcing_ratio):
         enc_result = self.encoder(input)

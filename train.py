@@ -9,7 +9,6 @@ from psutil import virtual_memory
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.optim as optim
 
 from core.dataset import dataset_loader
 from core.builder import get_model, get_loss, get_optimizer, get_scheduler
@@ -346,7 +345,7 @@ def run_epoch(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-c", "--config_file", dest="config_file", default="configs/Default.yaml", type=str, help="Path of configuration file",
+        "-c", "--config_file", dest="config_file", default="configs/Default_SATRN.yaml", type=str, help="Path of configuration file",
     )
     parser = parser.parse_args()
     main(parser.config_file)

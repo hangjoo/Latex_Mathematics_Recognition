@@ -29,7 +29,7 @@ def main(parser):
 
     device = torch.device("cuda" if is_cuda else "cpu")
 
-    dummy_gt = "\sin " * parser.max_sequence  # set maximum inference sequence
+    dummy_gt = "\\sin " * parser.max_sequence  # set maximum inference sequence
     root = os.path.join(os.path.dirname(parser.file_path), "images")
     with open(parser.file_path, "r") as fd:
         reader = csv.reader(fd, delimiter="\t")
@@ -72,7 +72,7 @@ def main(parser):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--checkpoint", dest="checkpoint", default="./log/attention_50/checkpoints/0050.pth", type=str, help="Path of checkpoint file",
+        "--checkpoint", dest="checkpoint", default="./log/attention_50/best_score.pth", type=str, help="Path of checkpoint file",
     )
     parser.add_argument(
         "--max_sequence", dest="max_sequence", default=230, type=int, help="maximun sequence when doing inference",

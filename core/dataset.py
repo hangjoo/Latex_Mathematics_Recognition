@@ -200,7 +200,7 @@ def dataset_loader(config, tokenizer):
         train_dataset,
         batch_size=config.train_config.batch_size,
         shuffle=True,
-        num_workers=config.data.train_config.num_workers,
+        num_workers=config.train_config.num_workers,
         collate_fn=train_dataset.collate_fn,
     )
 
@@ -209,7 +209,7 @@ def dataset_loader(config, tokenizer):
         valid_dataset,
         batch_size=config.train_config.batch_size,
         shuffle=False,
-        num_workers=config.data.train_config.num_workers,
+        num_workers=config.train_config.num_workers,
         collate_fn=valid_dataset.collate_fn,
     )
 
