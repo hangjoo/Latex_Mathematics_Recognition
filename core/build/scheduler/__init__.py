@@ -1,3 +1,5 @@
 from .CircularLRBeta import CircularLRBeta
+from .get_cosine_with_hard_restarts_schedule_with_warmup import get_cosine_with_hard_restarts_schedule_with_warmup
+from .get_cosine_schedule_with_warmup import get_cosine_schedule_with_warmup
 
-__all__ = ["CircularLRBeta"]
+__all__ = ["CircularLRBeta", "get_cosine_with_hard_restarts_schedule_with_warmup", "get_cosine_schedule_with_warmup"]

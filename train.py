@@ -87,20 +87,23 @@ def main(config_file):
         "The number of classes : {}\n".format(len(tokenizer.token_to_id)),
     )
 
-    # get model
+    # get model, loss
     model = get_model(config, tokenizer).to(device)
     if ckpt["model_state"]:
         model.load_state_dict(ckpt["model_state"])
     model.train()
 
-    # get loss
     criterion = get_loss(config)
     params_to_optimise = [param for param in model.parameters() if param.requires_grad]
     print(
         "[+] Model\n",
-        "Type: {}\n".format(config.model.type),
-        "Model parameters: {}\n".format(sum(p.numel() for p in params_to_optimise)),
+        f"Type: {config.model.type}\n",
+        f"Model parameters: {format(sum(p.numel() for p in params_to_optimise), ',')}\n",
     )
+    print("[+] Loss")
+    for k, v in config.loss._asdict():
+        print(f" {k}: {v}")
+    print()
 
     # get optimizer
     optimizer = get_optimizer(config, params_to_optimise)
@@ -108,9 +111,18 @@ def main(config_file):
         optimizer.load_state_dict(ckpt["optim_state"])
     # for param_group in optimizer.param_groups:
     #     param_group["initial_lr"] = config.optimizer.lr
+    print("[+] Optimizer")
+    for k, v in config.optimizer._asdict():
+        print(f" {k}: {v}")
+    print()
 
     # get scheduler
     scheduler = get_scheduler(config, optimizer)
+    if scheduler:
+        print("[+] Scheduler")
+        for k, v in config.scheduler._asdict():
+            print(f" {k}: {v}")
+        print()
 
     # log
     os.makedirs(config.prefix, exist_ok=True)
