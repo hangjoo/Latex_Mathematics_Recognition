@@ -1,4 +1,3 @@
-# model configs.
 model:
   type: "Attention"
   Attention:
@@ -23,7 +22,6 @@ scheduler:
     - 0.95
     - 0.85
 
-# data configs.
 data:
   train:
     path:
@@ -50,7 +48,6 @@ data:
   crop: True
   rgb: True  # True for RGB, False for grayscale
 
-# training configs.
 train_config:
   batch_size: 96
   num_workers: 8
