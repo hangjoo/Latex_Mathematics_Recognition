@@ -1,5 +1,6 @@
 import os
 import random
+from albumentations.augmentations.functional import get_random_crop_coords
 import torch
 from PIL import Image, ImageOps
 from torch.utils.data import Dataset
@@ -52,10 +53,8 @@ def collate_eval_batch(data):
     }
 
 
-class DefaultDataset(Dataset):
-    def __init__(
-        self, data, tokenizer, crop=False, transform=None, rgb=3,
-    ):
+class Default(Dataset):
+    def __init__(self, data, tokenizer, crop=False, transform=None, rgb=3):
         """
         Args
             data: A list that includes an image name and raw latex text. E.g) [["/{img_path}/train_00001.jpg", "4 \\times 7 = 2 8"], ...]
@@ -63,7 +62,7 @@ class DefaultDataset(Dataset):
             transform: Pytorch transforms to apply on images.
             rgb: If set 3, image would be loaded as 3 channels(RGB), else if grayscale.
         """
-        super(DefaultDataset, self).__init__()
+        super(Default, self).__init__()
         self.transform = get_transforms(transform)
         self.crop = crop
         self.rgb = rgb
@@ -103,35 +102,39 @@ class DefaultDataset(Dataset):
 
         return {"path": item["path"], "truth": item["truth"], "image": image}
 
+    @staticmethod
+    def collate_fn(data):
+        max_len = max([len(d["truth"]["encoded"]) for d in data])
+        # Padding with -1, will later be replaced with the PAD token
+        padded_encoded = [d["truth"]["encoded"] + (max_len - len(d["truth"]["encoded"])) * [-1] for d in data]
+        return {
+            "path": [d["path"] for d in data],
+            "image": torch.stack([d["image"] for d in data], dim=0),
+            "truth": {"text": [d["truth"]["text"] for d in data], "encoded": torch.tensor(padded_encoded)},
+        }
 
-class LoadEvalDataset(Dataset):
-    """Load Dataset"""
 
-    def __init__(
-        self, groundtruth, token_to_id, id_to_token, crop=False, transform=None, rgb=3,
-    ):
-        """
-        Args:
-            groundtruth (string): Path to ground truth TXT/TSV file
-            tokens_file (string): Path to tokens TXT file
-            ext (string): Extension of the input files
-            crop (bool, optional): Crop images to their bounding boxes [Default: False]
-            transform (callable, optional): Optional transform to be applied
-                on a sample.
-        """
-        super(LoadEvalDataset, self).__init__()
+class EvalDataset(Dataset):
+    def __init__(self, data, tokenizer, crop=False, transform=None, rgb=3):
+        super(EvalDataset, self).__init__()
+        self.transform = get_transforms(transform)
         self.crop = crop
         self.rgb = rgb
-        self.token_to_id = token_to_id
-        self.id_to_token = id_to_token
-        self.transform = transform
+        self.tokenizer = tokenizer
         self.data = [
             {
                 "path": p,
-                "file_path": p1,
-                "truth": {"text": truth, "encoded": [self.token_to_id[START], *encode_truth(truth, self.token_to_id), self.token_to_id[END]]},
+                "img_name": img_name,
+                "truth": {
+                    "text": sent,
+                    "encoded": [
+                        self.tokenizer.token_to_id[self.tokenizer.START_TOKEN],
+                        *self.tokenizer.encode(sent),
+                        self.tokenizer.token_to_id[self.tokenizer.END_TOKEN],
+                    ],
+                },
             }
-            for p, p1, truth in groundtruth
+            for p, img_name, sent in data
         ]
 
     def __len__(self):
@@ -139,24 +142,32 @@ class LoadEvalDataset(Dataset):
 
     def __getitem__(self, i):
         item = self.data[i]
-        image = Image.open(item["path"])
-        if self.rgb == 3:
-            image = image.convert("RGB")
-        elif self.rgb == 1:
-            image = image.convert("L")
-        else:
-            raise NotImplementedError
 
-        if self.crop:
-            # Image needs to be inverted because the bounding box cuts off black pixels,
-            # not white ones.
-            bounding_box = ImageOps.invert(image).getbbox()
-            image = image.crop(bounding_box)
+        if self.rgb:  # RGB
+            image = cv2.imread(item["path"], cv2.IMREAD_COLOR)
+        else:  # Grayscale
+            image = cv2.imread(item["path"], cv2.IMREAD_GRAYSCALE)
 
+        # apply transforms.
         if self.transform:
-            image = self.transform(image)
+            image = self.transform(image=image)["image"]
 
-        return {"path": item["path"], "file_path": item["file_path"], "truth": item["truth"], "image": image}
+        # to tensor(channels, height, width).
+        image = ToTensorV2()(image=image)["image"]
+
+        return {"path": item["path"], "img_name": item["img_name"], "truth": item["truth"], "image": image}
+
+    @staticmethod
+    def collate_fn(data):
+        max_len = max([len(d["truth"]["encoded"]) for d in data])
+        # Padding with -1, will later be replaced with the PAD token
+        padded_encoded = [d["truth"]["encoded"] + (max_len - len(d["truth"]["encoded"])) * [-1] for d in data]
+        return {
+            "path": [d["path"] for d in data],
+            "img_name": [d["img_name"] for d in data],
+            "image": torch.stack([d["image"] for d in data], dim=0),
+            "truth": {"text": [d["truth"]["text"] for d in data], "encoded": torch.tensor(padded_encoded)},
+        }
 
 
 def dataset_loader(config, tokenizer):
@@ -170,17 +181,6 @@ def dataset_loader(config, tokenizer):
             train, valid = split_gt(path, prop, config.data.test_proportions)
             train_data += train
             valid_data += valid
-
-        # Load data
-        train_dataset = DefaultDataset(train_data, tokenizer, crop=config.data.crop, transform=config.data.train.transforms, rgb=config.data.rgb)
-        train_loader = DataLoader(
-            train_dataset, batch_size=config.train_config.batch_size, shuffle=True, num_workers=config.train_config.num_workers, collate_fn=collate_batch,
-        )
-
-        valid_dataset = DefaultDataset(valid_data, tokenizer, crop=config.data.crop, transform=config.data.train.transforms, rgb=config.data.rgb)
-        valid_loader = DataLoader(
-            valid_dataset, batch_size=config.train_config.batch_size, shuffle=False, num_workers=config.train_config.num_workers, collate_fn=collate_batch,
-        )
     else:
         for i, path in enumerate(config.data.train.path):
             prop = 1.0
@@ -191,15 +191,26 @@ def dataset_loader(config, tokenizer):
             valid = split_gt(path)
             valid_data += valid
 
-        # Load data
-        train_dataset = DefaultDataset(train_data, tokenizer, crop=config.data.crop, transform=config.data.train.transforms, rgb=config.data.rgb)
-        train_loader = DataLoader(
-            train_dataset, batch_size=config.train_config.batch_size, shuffle=True, num_workers=config.data.train_config.num_workers, collate_fn=collate_batch,
-        )
+    train_transform = config.data.train.transforms
+    valid_transform = config.data.valid.transforms if not config.data.random_split else train_transform
 
-        valid_dataset = DefaultDataset(valid_data, tokenizer, crop=config.data.crop, transform=config.data.valid.transforms, rgb=config.data.rgb)
-        valid_loader = DataLoader(
-            valid_dataset, batch_size=config.train_config.batch_size, shuffle=False, num_workers=config.data.train_config.num_workers, collate_fn=collate_batch,
-        )
+    # Load data
+    train_dataset = Default(train_data, tokenizer, crop=config.data.crop, transform=train_transform, rgb=config.data.rgb)
+    train_loader = DataLoader(
+        train_dataset,
+        batch_size=config.train_config.batch_size,
+        shuffle=True,
+        num_workers=config.data.train_config.num_workers,
+        collate_fn=train_dataset.collate_fn,
+    )
+
+    valid_dataset = Default(valid_data, tokenizer, crop=config.data.crop, transform=valid_transform, rgb=config.data.rgb)
+    valid_loader = DataLoader(
+        valid_dataset,
+        batch_size=config.train_config.batch_size,
+        shuffle=False,
+        num_workers=config.data.train_config.num_workers,
+        collate_fn=valid_dataset.collate_fn,
+    )
 
     return train_loader, valid_loader
