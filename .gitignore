@@ -1,0 +1,14 @@
+# files
+*.out
+*.ipynb
+submission.txt
+download.sh
+
+# dirs
+__pycache__/
+.ipynb_checkpoints/
+.vscode/
+wandb/
+submit/
+data_tools/
+log/

@@ -6,27 +6,33 @@ use_cuda = torch.cuda.is_available()
 
 default_checkpoint = {
     "epoch": 0,
-    "train_losses": [],
-    "train_symbol_accuracy": [],
-    "train_sentence_accuracy": [],
-    "train_wer": [],
-    "validation_losses": [],
-    "validation_symbol_accuracy": [],
-    "validation_sentence_accuracy": [],
-    "validation_wer": [],
     "lr": [],
+
     "grad_norm": [],
-    "model": {},
-    "configs":{},
-    "token_to_id":{},
-    "id_to_token":{},
+    "train_loss": [],
+    "train_symbol_acc": [],
+    "train_sent_acc": [],
+    "train_wer": [],
+    "train_score": [],
+
+    "valid_loss": [],
+    "valid_symbol_acc": [],
+    "valid_sent_acc": [],
+    "valid_wer": [],
+    "valid_score": [],
+
+    "model_state": {},
+    "optim_state": {},
+    "configs": None,
+    "tokenizer": None,
 }
 
 
-def save_checkpoint(checkpoint, dir="./checkpoints", prefix=""):
-    # Padded to 4 digits because of lexical sorting of numbers.
-    # e.g. 0009.pth
-    filename = "{num:0>4}.pth".format(num=checkpoint["epoch"])
+def save_checkpoint(checkpoint, dir="./checkpoints", prefix="", base_name=""):
+    if base_name:
+        filename = f"{base_name}.pth"
+    else:
+        filename = f"{checkpoint['epoch']:0>4}.pth"
     if not os.path.exists(os.path.join(prefix, dir)):
         os.makedirs(os.path.join(prefix, dir))
     torch.save(checkpoint, os.path.join(prefix, dir, filename))
@@ -60,28 +66,20 @@ def write_tensorboard(
 ):
     writer.add_scalar("train_loss", train_loss, epoch)
     writer.add_scalar("train_symbol_accuracy", train_symbol_accuracy, epoch)
-    writer.add_scalar("train_sentence_accuracy",train_sentence_accuracy,epoch)
+    writer.add_scalar("train_sentence_accuracy", train_sentence_accuracy, epoch)
     writer.add_scalar("train_wer", train_wer, epoch)
     writer.add_scalar("validation_loss", validation_loss, epoch)
     writer.add_scalar("validation_symbol_accuracy", validation_symbol_accuracy, epoch)
-    writer.add_scalar("validation_sentence_accuracy",validation_sentence_accuracy,epoch)
-    writer.add_scalar("validation_wer",validation_wer,epoch)
+    writer.add_scalar("validation_sentence_accuracy", validation_sentence_accuracy, epoch)
+    writer.add_scalar("validation_wer", validation_wer, epoch)
     writer.add_scalar("grad_norm", grad_norm, epoch)
 
     for name, param in model.encoder.named_parameters():
-        writer.add_histogram(
-            "encoder/{}".format(name), param.detach().cpu().numpy(), epoch
-        )
+        writer.add_histogram("encoder/{}".format(name), param.detach().cpu().numpy(), epoch)
         if param.grad is not None:
-            writer.add_histogram(
-                "encoder/{}/grad".format(name), param.grad.detach().cpu().numpy(), epoch
-            )
+            writer.add_histogram("encoder/{}/grad".format(name), param.grad.detach().cpu().numpy(), epoch)
 
     for name, param in model.decoder.named_parameters():
-        writer.add_histogram(
-            "decoder/{}".format(name), param.detach().cpu().numpy(), epoch
-        )
+        writer.add_histogram("decoder/{}".format(name), param.detach().cpu().numpy(), epoch)
         if param.grad is not None:
-            writer.add_histogram(
-                "decoder/{}/grad".format(name), param.grad.detach().cpu().numpy(), epoch
-            )
+            writer.add_histogram("decoder/{}/grad".format(name), param.grad.detach().cpu().numpy(), epoch)

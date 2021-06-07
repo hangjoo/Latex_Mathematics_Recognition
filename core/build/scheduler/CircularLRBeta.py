@@ -1,9 +1,5 @@
-
 class CircularLRBeta:
-
-    def __init__(
-        self, optimizer, lr_max, lr_divider, cut_point, step_size, momentum=None
-    ):
+    def __init__(self, optimizer, lr_max, lr_divider, cut_point, step_size, momentum=None):
         self.lr_max = lr_max
         self.lr_divider = lr_divider
         self.cut_point = step_size // cut_point
@@ -15,9 +11,7 @@ class CircularLRBeta:
 
     def get_lr(self):
         if self.iteration > 2 * self.cycle_step:
-            cut = (self.iteration - 2 * self.cycle_step) / (
-                self.step_size - 2 * self.cycle_step
-            )
+            cut = (self.iteration - 2 * self.cycle_step) / (self.step_size - 2 * self.cycle_step)
             lr = self.lr_max * (1 + (cut * (1 - 100) / 100)) / self.lr_divider
 
         elif self.iteration > self.cycle_step:
@@ -56,9 +50,9 @@ class CircularLRBeta:
             self.iteration = 0
 
         for group in self.optimizer.param_groups:
-            group['lr'] = lr
+            group["lr"] = lr
 
             if self.momentum is not None:
-                group['betas'] = (momentum, group['betas'][1])
+                group["betas"] = (momentum, group["betas"][1])
 
         return lr
