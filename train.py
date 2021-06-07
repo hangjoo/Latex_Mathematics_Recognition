@@ -101,7 +101,7 @@ def main(config_file):
         f"Model parameters: {format(sum(p.numel() for p in params_to_optimise), ',')}\n",
     )
     print("[+] Loss")
-    for k, v in config.loss._asdict():
+    for k, v in config.loss._asdict().items():
         print(f" {k}: {v}")
     print()
 
@@ -112,7 +112,7 @@ def main(config_file):
     # for param_group in optimizer.param_groups:
     #     param_group["initial_lr"] = config.optimizer.lr
     print("[+] Optimizer")
-    for k, v in config.optimizer._asdict():
+    for k, v in config.optimizer._asdict().items():
         print(f" {k}: {v}")
     print()
 
@@ -120,7 +120,7 @@ def main(config_file):
     scheduler = get_scheduler(config, optimizer)
     if scheduler:
         print("[+] Scheduler")
-        for k, v in config.scheduler._asdict():
+        for k, v in config.scheduler._asdict().items():
             print(f" {k}: {v}")
         print()
 
@@ -357,7 +357,7 @@ def run_epoch(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-c", "--config_file", dest="config_file", default="configs/Default_SATRN.yaml", type=str, help="Path of configuration file",
+        "-c", "--config_file", dest="config_file", default="configs/Default_Attention.yaml", type=str, help="Path of configuration file",
     )
     parser = parser.parse_args()
     main(parser.config_file)
