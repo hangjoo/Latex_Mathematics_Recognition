@@ -1,5 +1,5 @@
 model:
-  type: "Attention"
+  type: "Attention_baseline"
   Attention:
     src_dim: 512
     hidden_dim: 128

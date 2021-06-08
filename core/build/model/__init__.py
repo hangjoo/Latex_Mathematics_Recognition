@@ -1,4 +1,4 @@
-from .Attention import Attention
-from .SATRN import SATRN
+from .Attention import Attention_baseline
+from .SATRN import SATRN_baseline
 
-__all__ = ["Attention", "SATRN"]
+__all__ = ["Attention_baseline", "SATRN_baseline"]

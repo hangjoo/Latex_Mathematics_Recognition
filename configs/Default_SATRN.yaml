@@ -1,5 +1,5 @@
 model:
-  type: "SATRN"
+  type: "SATRN_baseline"
   encoder:
     hidden_dim: 300
     filter_dim: 600

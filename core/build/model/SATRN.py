@@ -388,6 +388,7 @@ class TransformerDecoder(nn.Module):
     def order_mask(self, length):
         order_mask = torch.triu(torch.ones(length, length), diagonal=1).bool()
         order_mask = order_mask.unsqueeze(0).to(device)
+
         return order_mask
 
     def text_embedding(self, texts):
@@ -432,10 +433,10 @@ class TransformerDecoder(nn.Module):
         return out
 
 
-class SATRN(nn.Module):
+class SATRN_baseline(nn.Module):
     # def __init__(self, FLAGS, train_dataset, checkpoint=None):
     def __init__(self, config, tokenizer):
-        super(SATRN, self).__init__()
+        super(SATRN_baseline, self).__init__()
 
         self.encoder = TransformerEncoderFor2DFeatures(
             input_size=3 if config.data.rgb else 1,
