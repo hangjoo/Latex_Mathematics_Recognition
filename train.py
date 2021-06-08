@@ -101,7 +101,10 @@ def main(config_file):
         f"Model parameters: {format(sum(p.numel() for p in params_to_optimise), ',')}\n",
     )
     print("[+] Loss")
-    for k, v in config.loss._asdict().items():
+    loss_config = config.loss._asdict()
+    loss_type = loss_config.pop("type")
+    print(f" type: {loss_type}")
+    for k, v in loss_config.items():
         print(f" {k}: {v}")
     print()
 
@@ -112,7 +115,10 @@ def main(config_file):
     # for param_group in optimizer.param_groups:
     #     param_group["initial_lr"] = config.optimizer.lr
     print("[+] Optimizer")
-    for k, v in config.optimizer._asdict().items():
+    optim_config = config.optimizer._asdict()
+    optim_type = optim_config.pop("type")
+    print(f" type: {optim_type}")
+    for k, v in optim_config.items():
         print(f" {k}: {v}")
     print()
 
@@ -120,7 +126,10 @@ def main(config_file):
     scheduler = get_scheduler(config, optimizer)
     if scheduler:
         print("[+] Scheduler")
-        for k, v in config.scheduler._asdict().items():
+        scheduler_config = config.scheduler._asdict()
+        scheduler_type = scheduler_config.pop("type")
+        print(f" type: {scheduler_type}")
+        for k, v in scheduler_config.items():
             print(f" {k}: {v}")
         print()
 
@@ -231,7 +240,7 @@ def main(config_file):
                 f"Train Symbol Accuracy = {train_symbol_acc:.4f}, "
                 f"Train Sentence Accuracy = {train_sent_acc:.4f}, "
                 f"Train WER = {train_wer:.4f}, "
-                f"Train Score = {valid_score:.4f}"
+                f"Train Score = {valid_score:.4f}, "
                 f"Valid Loss = {valid_loss:.4f}, "
                 f"Valid Symbol Accuracy = {valid_symbol_acc:.4f}, "
                 f"Valid Sentence Accuracy = {valid_sent_acc:.4f}, "
