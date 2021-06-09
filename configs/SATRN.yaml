@@ -1,0 +1,64 @@
+model:
+  type: "SATRN"
+  hidden_dim: 512
+  n_e: 12
+  n_d: 6
+  num_head: 8
+  dropout_rate: 0.1
+loss:
+  type: "CrossEntropyLoss"
+optimizer:
+  type: "Adam"
+  lr: 3e-4
+  weight_decay: 1e-4
+scheduler:
+  type: "CircularLRBeta"
+  lr_max: 5e-4
+  lr_divider: 10
+  cut_point: 10
+  step_size: 834  # step size
+  momentum:
+    - 0.95
+    - 0.85
+
+data:
+  train:
+    path:
+      - "/opt/ml/input/data/train_dataset/gt.txt"
+    transforms:
+      - "Resize(height=32, width=100)"
+      - "ToGray(p=1.0)"
+      - "Normalize(always_apply=True)"
+  valid:
+    path:
+      - ""
+    transforms:
+      - null
+  test:
+    path:
+      - ""
+    transforms:
+      - null
+  token_paths:
+    - "/opt/ml/input/data/train_dataset/tokens.txt"
+  dataset_proportions:  # proportion of data to take from train (not test)
+    - 1.0
+  random_split: True  # if set True, divided to train and validation dataset from train path. valid args would be ignored.
+  test_proportions: 0.2  # factor how many to take from train data for validation.
+  crop: True
+  rgb: True  # True for RGB, False for grayscale
+
+train_config:
+  batch_size: 32
+  num_workers: 8
+  num_epochs: 50
+  print_interval: 1
+  teacher_forcing_ratio: 0.5
+  max_grad_norm: 2.0
+seed: 42
+wandb:
+  project: "hangjoo"
+  entity: "unnamed"
+  name: "SATRN"
+prefix: "./log/SATRN"
+checkpoint: ""
