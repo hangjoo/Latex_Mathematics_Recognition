@@ -1,6 +1,7 @@
 # models
 from .build.model import Baseline_Attention
 from .build.model import Baseline_SATRN
+from .build.model import SATRN
 
 # losses
 from torch.nn import CrossEntropyLoss
@@ -15,8 +16,9 @@ from .build.scheduler import get_cosine_schedule_with_warmup
 from .build.scheduler import get_cosine_with_hard_restarts_schedule_with_warmup
 
 model_list = {
-    "Baseline_Attention": Baseline_Attention,
+    "Attention": Baseline_Attention,
     "Baseline_SATRN": Baseline_SATRN,
+    "SATRN": SATRN,
 }
 
 loss_list = {
