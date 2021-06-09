@@ -75,7 +75,7 @@ if __name__ == "__main__":
         "--checkpoint", dest="checkpoint", default="./log/attention_50/best_score.pth", type=str, help="Path of checkpoint file",
     )
     parser.add_argument(
-        "--max_sequence", dest="max_sequence", default=230, type=int, help="maximun sequence when doing inference",
+        "--max_sequence", dest="max_sequence", default=300, type=int, help="maximun sequence when doing inference",
     )
     parser.add_argument(
         "--batch_size", dest="batch_size", default=8, type=int, help="batch size when doing inference",
