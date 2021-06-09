@@ -155,3 +155,4 @@ checkpoint: ""
 - [x]  ~~Inference 코드도 맞게 수정~~
 - [ ]  API 코드 구현
 - [ ]  SATRN 모델 구현
+- [ ]  현재 inference 시에도 dummy_gt를 model forward로 사용하도록 구현이 되어있음 -> dummy_gt 없이 dummy_gt 대신 max_len(integer)를 사용하도록 변경.
