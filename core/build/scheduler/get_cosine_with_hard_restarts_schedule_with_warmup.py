@@ -1,10 +1,10 @@
-# Reference: https://huggingface.co/transformers/_modules/transformers/optimization.html#get_cosine_with_hard_restarts_schedule_with_warmup
 import math
 
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import LambdaLR
 
 
+# Reference: https://huggingface.co/transformers/_modules/transformers/optimization.html#get_cosine_with_hard_restarts_schedule_with_warmup
 def get_cosine_with_hard_restarts_schedule_with_warmup(
     optimizer: Optimizer, num_warmup_steps: int, num_training_steps: int, num_cycles: int = 1, last_epoch: int = -1
 ):
