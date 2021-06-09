@@ -433,10 +433,10 @@ class TransformerDecoder(nn.Module):
         return out
 
 
-class SATRN_baseline(nn.Module):
+class Baseline_SATRN(nn.Module):
     # def __init__(self, FLAGS, train_dataset, checkpoint=None):
     def __init__(self, config, tokenizer):
-        super(SATRN_baseline, self).__init__()
+        super(Baseline_SATRN, self).__init__()
 
         self.encoder = TransformerEncoderFor2DFeatures(
             input_size=3 if config.data.rgb else 1,

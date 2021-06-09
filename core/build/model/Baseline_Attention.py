@@ -183,9 +183,9 @@ class AttentionDecoder(nn.Module):
         return probs  # batch_size x num_steps x num_classes
 
 
-class Attention_baseline(nn.Module):
+class Baseline_Attention(nn.Module):
     def __init__(self, config, tokenizer):
-        super(Attention_baseline, self).__init__()
+        super(Baseline_Attention, self).__init__()
         if config.data.rgb:
             self.encoder = CNN(3)
         else:

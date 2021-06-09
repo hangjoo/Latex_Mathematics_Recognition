@@ -1,6 +1,6 @@
 # models
-from .build.model import Attention
-from .build.model import SATRN
+from .build.model import Baseline_Attention
+from .build.model import Baseline_SATRN
 
 # losses
 from torch.nn import CrossEntropyLoss
@@ -11,10 +11,12 @@ from torch.optim import SGD, Adam, adadelta
 # schedulers
 from torch.optim.lr_scheduler import StepLR
 from .build.scheduler import CircularLRBeta
+from .build.scheduler import get_cosine_schedule_with_warmup
+from .build.scheduler import get_cosine_with_hard_restarts_schedule_with_warmup
 
 model_list = {
-    "Attention": Attention,
-    "SATRN": SATRN
+    "Baseline_Attention": Baseline_Attention,
+    "Baseline_SATRN": Baseline_SATRN,
 }
 
 loss_list = {
@@ -29,6 +31,8 @@ optim_list = {
 
 iter_scheduler_list = {
     "CircularLRBeta": CircularLRBeta,
+    "get_cosine_schedule_with_warmup": get_cosine_schedule_with_warmup,
+    "get_cosine_with_hard_restarts_schedule_with_warmup": get_cosine_with_hard_restarts_schedule_with_warmup,
 }
 epoch_scheduler_list = {
     "StepLR": StepLR,
