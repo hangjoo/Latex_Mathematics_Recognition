@@ -1,6 +1,8 @@
 <br></br>
 ### Dataset 전략
 <br></br>
+
+meta_dataset : [Download](http://101.101.217.93:8890/files/code/split_data/image_meta_01.csv?_xsrf=2%7Ccfe11690%7C9d283eb40aa845479a837aeb306e2a2a%7C1622106517).  
 **train data ( 8만장 )**
 
 - train data.txt : 군집화를 통해서 계층화 추출을 한 (8만 - train_edge_case)장의 이미지 파일 이름들을 모아두었습니다.
