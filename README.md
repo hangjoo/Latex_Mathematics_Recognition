@@ -11,7 +11,7 @@
 
 ```yaml
 model:
-  type: "Attention"
+  type: "Baseline_Attention"
   Attention:
     src_dim: 512
     hidden_dim: 128
@@ -42,6 +42,11 @@ data:
       - "Resize(height=128, width=128)"
       - "Normalize(always_apply=True)"
   valid:
+    path:
+      - ""
+    transforms:
+      - null
+  test:
     path:
       - ""
     transforms:
@@ -149,3 +154,4 @@ checkpoint: ""
 - [ ]  run_epoch 코드 수정
 - [x]  ~~Inference 코드도 맞게 수정~~
 - [ ]  API 코드 구현
+- [ ]  SATRN 모델 구현
