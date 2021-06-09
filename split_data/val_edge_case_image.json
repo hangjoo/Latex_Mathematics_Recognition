@@ -1,1 +1,213 @@
-{"\\dot": ["train_77829.jpg\t0 . 6 \\dot a \\dot b =", "train_92548.jpg\t\\dot { e } _ { r }", "train_10695.jpg\t- m g \\cos \\theta + F _ { \\theta f } = m a _ { \\theta } = m \\left( r \\ddot { \\theta } + 2 \\dot { r } \\dot { \\theta } \\right)"], "%": ["train_96605.jpg\t4 9 % \\pm \\frac { 3 } { 2 } \\times 6 %", "train_24297.jpg\tk = R f + \\left[ E \\left( R m \\right) - R f \\right] , k = 3 % + 0 . 5 \\left[ 1 1 % - 3 % \\right] = 3 % + 4 % = 7 %", "train_78289.jpg\t\\frac { 6 0 0 } { 2 0 0 0 } = \\frac { 3 0 } { 1 0 0 } = 3 0 %"], "\\varnothing": ["train_71506.jpg\tA \\circ \\varnothing = \\varnothing \\circ A = A \\left( \\right.", "train_38769.jpg\tp = \\varnothing", "train_56303.jpg\tP \\left( A \\right) = \\left\\{ \\varnothing , \\left\\{ a \\right\\} , \\left\\{ b \\right\\} , \\left\\{ c \\right\\} , \\left\\{ a , b \\right\\} , \\left\\{ b , c \\right\\} , \\left\\{ c , a \\right\\} , \\left\\{ a , b , c \\right\\} \\right\\}"], "\\subset": ["train_09680.jpg\t{ N } \\left( A \\right) \\subset { N } \\left( A ^ { { T } } A \\right)", "train_47962.jpg\tA \\left( x _ { 1 } , y _ { 1 } \\right) B \\left( x _ { 2 } , y _ { 2 } \\right) \\subset \\left( x _ { 3 } , y _ { 3 } \\right)", "train_35509.jpg\t\\Leftrightarrow B ^ { c } \\subset A ^ { c } \\Leftrightarrow A ^ { c } \\cup B = U"], "\\because": ["train_63065.jpg\t\\left( \\because x + 1 > 0 , x - 1 < 0 \\right)", "train_83078.jpg\t\\left( \\because x < 0 \\right)", "train_39871.jpg\t\\because | z | < 1"], "\\approx": ["train_84400.jpg\t\\approx 1 6 \\left( \\frac { 1 } { 5 } - \\frac { 1 } { 3 \\cdot 5 ^ { 3 } } + \\cdots + \\left( - 1 \\right) ^ { n } \\frac { 1 } { \\left( 2 n + 1 \\right) 5 ^ { 2 n + 1 } } \\right)", "train_94187.jpg\tG a l \\left( Q \\left( \\beta \\right) / Q \\right) \\approx U \\left( 1 5 \\right) \\approx U \\left( 5 \\right) \\oplus U \\left( 3 \\right) \\approx Z _ { 4 } \\oplus Z _ { 2 }", "train_37052.jpg\tW \\approx \\sum _ { x _ { i } } ^ { x _ { j } } F _ { x } \\Delta x"], "\\equiv": ["train_12310.jpg\tp _ { t } \\equiv P r \\left[ S _ { t } = 0 | s _ { t - 1 } = 1 , x _ { t } \\right]", "train_19333.jpg\t\\triangle { O A M } \\equiv \\triangle { O C N }", "train_04688.jpg\tp \\equiv \\frac { d E } { d t }"], "\\geqq": ["train_12499.jpg\ty \\geqq 0", "train_33699.jpg\tD \\geqq 0 ,", "train_14924.jpg\t\\left| a \\right| \\geqq 0 , \\left| a \\right| = \\left| - a \\right| , - \\left| a \\right| \\leqq a \\leqq \\left| a \\right|"], "\\cot": ["train_16644.jpg\ty ^ { \\prime } = \\frac { \\cos x } { \\sin x } = \\cot x", "train_65215.jpg\ty = \\cot x \\rightharpoonup y ^ { \\prime } = - \\csc ^ { 2 } x", "train_81247.jpg\t\\int \\csc x d x = - \\ln | \\csc x + \\cot x | +"], "\\sinh": ["train_91085.jpg\t\\cosh y + x \\sinh y \\cdot y ^ { \\prime } + y ^ { \\prime } \\sinh x", "train_31325.jpg\t= 2 y x ^ { - 1 } \\left( \\frac { e ^ { y ^ { 2 } x ^ { - 1 } } - e ^ { - y ^ { 2 } x ^ { - 1 } } } { 2 } \\right) = 2 y x ^ { - 1 } \\sinh \\left( y ^ { 2 } / x \\right)", "train_66015.jpg\t\\csch x = \\frac { 1 } { \\sinh x } = \\frac { 2 } { e ^ { x } - e ^ { - x } }"], "\\sec": ["train_28368.jpg\t\\left. \\left. x \\right| ^ { - 1 } \\right) \\ln \\left( 1 / \\left| \\cos x \\right| \\right) = \\ln \\left| \\sec x \\right|", "train_89162.jpg\ty = \\sec \\left( x ^ { 2 } - 3 \\right)", "train_53775.jpg\tT = 0 . 1 \\sec /"], "\\cosh": ["train_32784.jpg\t\\tanh x = \\frac { \\sinh x } { \\cosh x }", "train_65499.jpg\t\\frac { d } { d x } \\left( \\cosh ^ { - 1 } x \\right) = \\frac { 1 } { \\sqrt { x ^ { 2 } - 1 } }", "train_52122.jpg\tf _ { y } = e ^ { x } \\cosh y + 3 \\sin \\left( 2 x - 3 y \\right) \\rightarrow f _ { y x } = e ^ { x } \\cosh y + 6 \\cos \\left( 2 x - 3 y \\right)"], "\\csc": ["train_81669.jpg\t\\int \\csc x \\cot x d x = - \\csc x + C", "train_44856.jpg\ty ^ { \\prime } = - \\csc ^ { 2 } x", "train_26745.jpg\ty ^ { \\prime \\prime } = - \\csc ^ { 2 } x"], "\\triangle": ["train_06608.jpg\t\\triangle B D P \\sim \\triangle A C P", "train_20249.jpg\t\\triangle - 1 - 1", "train_82767.jpg\t\\overline { A F } = \\triangle A B C"], "\\perp": ["train_12143.jpg\t\\overrightarrow { a } \\perp \\overrightarrow { b } \\Leftrightarrow \\overrightarrow { a } \\cdot \\overrightarrow { b } = 0 \\Leftrightarrow a _ { 1 } b _ { 1 } + a _ { 2 } b _ { 2 } = 0", "train_70712.jpg\t\\overline { { A B } } \\perp \\overline { { D E } }", "train_68939.jpg\t\\overline { { A B } } \\perp \\overline { { O M } } , \\overline { { C D } } \\perp \\overline { { O N } }"], "\\nabla": ["train_01736.jpg\t\\sum { V } \\cdot d \\sigma = \\sum \\nabla \\cdot V d \\tau", "train_55839.jpg\td i v \\left( g r a d f \\right) = \\nabla ^ { 2 } f .", "train_82396.jpg\t\\Rightarrow { g r a d } \\phi = \\nabla \\phi = \\overline { i } 2 x y ^ { 3 } z ^ { 2 } + \\overline { j } x ^ { 2 } 3 y ^ { 2 } + z ^ { 2 }"], "\\min": ["train_61827.jpg\ty _ { 0 } = \\frac { \\min _ { i = 1 } ^ { n } { e i } \\left( 1 \\right) } { 2 } > 0", "train_64793.jpg\tR _ { 0 } = N _ { 0 } \\lambda = N _ { 0 } \\frac { 0 . 6 9 3 } { T _ { 1 / 2 } } = \\left( 1 . 9 2 \\times 1 0 ^ { 1 7 } \\right) \\frac { 0 . 6 9 3 } { 2 0 . 4 \\min } \\left( \\frac { 1 \\min } { 6 0 \\ s } \\right)", "train_96007.jpg\tf \\left( x ^ { * } \\right) = \\min { } _ { x \\in \\Omega } f \\left( x \\right)"], "\\max": ["train_62773.jpg\ta _ { y , \\max } = \\omega ^ { 2 } A", "train_48042.jpg\tK _ { \\max } + \\phi = h f", "train_33973.jpg\tI = \\frac { \\left( \\Delta P _ { \\max } \\right) ^ { 2 } } { 2 \\rho v }"], ";": ["train_09217.jpg\t\\epsilon = < T ; I R ^ { l } ; \\left( X \\left( t \\right) \\right) _ { t \\in T } ; \\left( e \\left( t \\right) \\right) _ { t \\in T }", "train_03301.jpg\t= \\frac { 3 } { 2 } \\cdot \\frac { 1 } { \\left( \\frac { a } { b } \\right) ^ { 1 / 3 } + \\left( \\frac { b } { a } \\right) ^ { 1 / 3 } } = \\frac { 3 } { 2 } \\cdot \\frac { 1 } { \\frac { \\sqrt { 3 } } { 2 } } = \\sqrt { 3 } ; \\therefore \\theta = 6 0 ^ { \\circ } = \\frac { \\pi } { 3 }", "train_68949.jpg\t\\epsilon = < T ; I R ^ { l } ; \\left( X \\left( t \\right) \\right) _ { t \\in T } ; \\left( e \\left( t \\right) \\right) _ { t \\in T } \\right."], "\\varphi": ["train_48035.jpg\tp _ { i } \\left( a \\right) \\cap \\varphi _ { i } \\left( a \\right) = \\phi", "train_81597.jpg\t= \\varphi _ { i } \\left( a ^ { * } \\right)", "train_75601.jpg\t\\varphi _ c \\frac { z \\cosh \\pi z } { z ^ { 4 } + 1 3 z ^ { 2 } + 3 6 } d z , \\left| z \\right| = \\pi"], "\\tau": ["train_77534.jpg\tz \\left( t \\tau _ { t } x \\left( t \\right) \\right.", "train_41579.jpg\t\\epsilon < T : \\tau R", "train_45735.jpg\tT ^ { \\prime } \\left( s \\right) = \\frac { 1 } { \\tau s + 1 } \\cdot \\frac { Q \\left( s \\right) } { W C } + \\frac { T _ { i } ^ { \\prime } \\left( s \\right) } { \\tau s + 1 }"], "\\rho": ["train_98422.jpg\t\\rho Y _ { t - 1 } = \\rho \\beta X _ { t - 1 } + \\rho e _ { t }", "train_07617.jpg\ta _ { n } = \\frac { v _ { A } ^ { 2 } } { \\rho _ { A } } = \\frac { \\left( 2 2 m / s \\right) ^ { 2 } } { 4 0 m } = 1 2 . 1 m / s ^ { 2 }", "train_91325.jpg\t\\rho = 8 0 m"], "\\delta": ["train_20206.jpg\tH _ { 0 } : M _ { 1 } - M _ { 2 } = \\delta _ { 0 }", "train_92111.jpg\tp ^ { \\delta t } \\left( p , y \\right) = y", "train_72777.jpg\tf l \\left( a ^ { \\prime } \\div b ^ { \\prime } \\right) = \\left( a ^ { \\prime } \\div b ^ { \\prime } \\right) \\left( 1 + \\delta _ { 4 } \\right)"], "\\nu": ["train_99840.jpg\t\\left( r + \\nu \\right) \\left( r - \\nu \\right) = 0", "train_74535.jpg\t= \\frac { 2 } { \\pi ^ { 1 / 2 } \\left( \\nu - \\frac { 1 } { 2 } \\right) ! } \\left( \\frac { z } { 2 } \\right) ^ { \\nu } \\int _ { 0 } ^ { \\pi / 2 } \\cosh \\left( z \\cos \\theta \\right) \\sin ^ { 2 \\nu } \\theta d \\theta", "train_10018.jpg\tN _ { \\nu } \\left( z \\right) = \\sqrt { \\frac { 2 } { \\pi z } } \\left\\{ P _ { \\nu } \\left( z \\right) \\sin \\left[ z - \\left( \\nu + \\frac { 1 } { 2 } \\right) \\frac { \\pi } { 2 } \\right] \\right."], "\\end{matrix}": ["train_58503.jpg\t= \\left[ \\begin{matrix} s & - 1 \\\\ 1 & s + 2 \\end{matrix} \\right]", "train_78326.jpg\tA = \\left( \\begin{matrix} 2 & 3 \\\\ 1 & 4 \\\\ 5 & 6 \\end{matrix} \\right) , B = \\left( \\begin{matrix} 1 & 0 & 3 \\\\ - 1 & 2 & 5 \\end{matrix} \\right)", "train_38396.jpg\t= \\left\\{ \\begin{matrix} \\sigma ^ { 2 } \\sum _ { i = 0 } ^ { q - k } \\beta _ { i } \\beta _ { i + k } \\\\ 0 \\end{matrix} \\right."], "\\begin{matrix}": ["train_04025.jpg\t\\overrightarrow { O T } = \\frac { m \\overrightarrow { O Q } + n \\overrightarrow { O P } } { m + n } = \\frac { 1 } { m + n } \\left[ m \\left[ \\begin{matrix} 2 \\\\ 3 \\end{matrix} \\right] + n \\left[ \\begin{matrix} { l } 1 \\\\ 2 \\end{matrix} \\right] \\right] = \\frac { 1 } { m + n } \\left[ \\begin{matrix} { l } 2 m + n \\\\ 3 m + 2 n \\end{matrix} \\right]", "train_02245.jpg\t\\left\\{ \\begin{matrix} x ^ { 2 } - y ^ { 2 } - 2 x + y = 0 \\\\ 2 x ^ { 2 } - 2 y ^ { 2 } + x + 3 y = 1 \\end{matrix} \\right.", "train_73792.jpg\t= \\left( \\begin{matrix} 1 & 0 & 3 \\\\ 2 & 3 & - 1 \\\\ 0 & 4 & 1 \\end{matrix} \\right) = A"], "\\sum": ["train_84519.jpg\tP \\left( x _ { i } \\leq { X } \\leq { x } _ { j } \\right) = \\sum _ { k = i } ^ { j } P \\left( X = x _ { k } \\right)", "train_92217.jpg\tS _ { n } = \\sum _ { k = 1 } ^ { n } a _ { k } = \\frac { a + l } { 2 } \\times n \\rightarrow = \\frac { n \\left( 2 a + \\left( n - 1 \\right) d \\right) } { 2 }", "train_10680.jpg\t\\nabla _ { X } z = \\sum _ { j } \\left( \\nabla _ { X } Y _ { j } \\right) \\frac { \\partial z } { \\partial Y _ { j } } ."], "long_height": ["train_21830.jpg\tp \\left( \\log _ { a } x \\right) ^ { 2 } + q \\left( \\log _ { a } x \\right) + r < 0", "train_66304.jpg\ty = f ^ { \\prime } \\left( \\alpha \\right) \\left( x - \\alpha \\right) + f \\left( \\alpha \\right) , y = g ^ { \\prime } \\left( \\beta \\right) \\left( x - \\beta \\right) + g \\left( \\beta \\right)", "train_74319.jpg\tm g \\sin \\theta - \\mu _ { k } N = m a _ { x } \\Rightarrow m g \\sin \\theta - \\mu _ { k } \\cdot m g \\cos \\theta = m a _ { x }", "train_93932.jpg\t\\log _ { a } a = 1 , \\log _ { a } 1 = 0", "train_08973.jpg\tx ^ { 2 } - \\left( 1 - \\sqrt { 5 } + 1 + \\sqrt { 5 } \\right) x + \\left( 1 - \\sqrt { 5 } \\right) \\left( 1 + \\sqrt { 5 } \\right) = 0", "train_14333.jpg\t1 0 2 ^ { 2 } = \\left( 1 0 0 + 2 \\right) ^ { 2 } = 1 0 0 ^ { 2 } + 2 \\times 1 0 0 \\times 2 + 2 ^ { 2 }", "train_87280.jpg\t{ } _ { n } C _ { 0 } \\times { } _ { n } C _ { n } + { } _ { n } C _ { 1 } \\times { } _ { n } C _ { n - 1 } + { } _ { n } C _ { 2 } \\times { } _ { n } C _ { n - 2 } + \\cdots + { } _ { n } C _ { b } \\times { } _ { n } C _ { 0 } = { } _ { n + n }", "train_47573.jpg\t\\left( a + d \\right) + \\left( a + 2 d \\right) = 2 \\left( a + 1 2 \\right) , 3 d = 2 4", "train_33280.jpg\t\\left( \\sqrt { 6 } + 2 \\right) ^ { 2 } - \\left( \\sqrt { 2 } + 3 \\right) \\left( \\sqrt { 2 } - 3 \\right) = \\left( 6 + 4 \\sqrt { 6 } + 4 \\right) - \\left( 2 - 9 \\right)", "train_70191.jpg\t{ } _ { n } P _ { n } = n \\left( n - 1 \\right) \\left( n - 2 \\right) \\times \\cdots \\times 2 \\times 1 = n !", "train_22172.jpg\tE \\left( R _ { P } \\right) = w R _ { f } + \\left( 1 - w \\right) E \\left( R _ { M } \\right)", "train_64844.jpg\t\\left( n - r \\right) \\left( n - r - 1 \\right) \\left( n - r - 2 \\right) \\times \\cdots", "train_80575.jpg\t\\left( x _ { 2 } , y _ { 2 } , z _ { 2 } \\right) = \\left( - 1 . 9 3 1 , 5 . 3 5 0 , 2 . 8 2 5 \\right)", "train_52311.jpg\t{ } _ { 5 } C _ { 1 } + { } _ { 6 } C _ { 2 } + \\cdots + { } _ { 9 } C _ { 5 }", "train_42594.jpg\t= \\left\\{ z - \\frac { 1 } { 2 } \\left( 1 + \\sqrt { 3 } i \\right) x - \\frac { 1 } { 2 } \\left( 1 - \\sqrt { 3 } i \\right) y \\right\\} \\left\\{ z - \\frac { 1 } { 2 } \\left( 1 - \\sqrt { 3 } i \\right) x - \\frac { 1 } { 2 } \\left( 1 + \\sqrt { 3 } i \\right) y \\right\\}", "train_61626.jpg\t\\therefore y = c _ { 1 } e ^ { - 2 x } + c _ { 2 } x e ^ { - 2 x } + e ^ { - x } \\cdot 0 . 5 \\sin x", "train_40245.jpg\t\\overline { B C } = \\sqrt { \\left( 8 - 2 \\right) ^ { 2 } + \\left( - 1 - 3 \\right) ^ { 2 } } = \\sqrt { 5 2 } = 2 \\sqrt { 1 3 }", "train_98869.jpg\t- \\alpha f ^ { \\prime } \\left( \\alpha \\right) + f \\left( \\alpha \\right) = - \\beta g ^ { \\prime } \\left( \\beta \\right) + g \\left( \\beta \\right)", "train_54810.jpg\t= a ^ { 3 } + \\left( - 2 b \\right) ^ { 3 } + \\left( 3 c \\right) ^ { 3 } - 3 \\times a \\times \\left( - 2 b \\right) \\times 3 c", "train_48094.jpg\t\\therefore { f \\left( x \\right) } = \\left( x - 1 \\right) ^ { 2 } \\left( x + 1 \\right) Q \\left( x \\right) + a \\left( x - 1 \\right) ^ { 2 } + 3 x + 2", "train_90682.jpg\t9 a ^ { 2 } - b ^ { 2 } = \\left( 3 a \\right) ^ { 2 } - b ^ { 2 } = \\left( 3 a + b \\right) \\left( 3 a - b \\right)", "train_03774.jpg\t= 2 x ^ { 2 } - x + 3 + 3 x ^ { 2 } + 4 x - 5", "train_39549.jpg\ta \\times \\left( b \\times c \\right) = a \\times b \\times a \\times c =", "train_16510.jpg\t\\sinh \\left( x - y \\right) = \\sinh x \\cosh x - \\cosh x \\sinh x", "train_88159.jpg\tE \\left( Z \\right) = 0 . 5 E \\left( X \\right) + 0 . 5 E \\left( Y \\right) = 0 . 5 \\left( 9 + 7 \\right) = 8 \\left( % \\right)", "train_21766.jpg\t= \\left( 0 . 0 0 5 2 2 9 u \\right) \\times 9 3 1 . 4 9 4 \\ M e V / u", "train_86772.jpg\t2 \\log _ { 2 7 } \\left( 6 - 2 \\sqrt { 3 } \\right) + \\log _ { 2 7 } \\left( 2 + \\sqrt { 3 } \\right) - 2 \\log _ { 2 7 } 2 \\sqrt { 2 }", "train_68720.jpg\t\\left( \\sqrt { 2 } + \\sqrt { 3 } \\right) - \\left( 2 + \\sqrt { 3 } \\right) = \\sqrt { 2 } - 2 < 0", "train_09557.jpg\t\\alpha ^ { 3 } + \\beta ^ { 3 } + \\gamma ^ { 3 } = \\left( \\alpha + \\beta + \\gamma \\right) \\left( \\alpha ^ { 2 } + \\beta ^ { 2 } + \\gamma ^ { 2 } - \\alpha \\beta - \\beta \\gamma - \\gamma \\alpha \\right) + 3 \\alpha \\beta \\gamma", "train_43619.jpg\t\\left( P _ { 1 } - P _ { 2 } \\right) V = { \\frac { 1 } { 2 } m v _ { 2 } } ^ { 2 } - { \\frac { 1 } { 2 } m v _ { 1 } } ^ { 2 } + m g y _ { 2 } - m g y _ { 1 }"], "long_width": ["train_03172.jpg\t- m g \\sin \\theta + F _ { f r } = m a _ { r } = m \\left( \\ddot r - r \\dot \\theta ^ { 2 } \\right)", "train_07974.jpg\t= k _ { 1 } C _ { A 0 } ^ { 2 } \\frac { \\left( 1 - X _ { A } \\right) \\left( M - X _ { A } \\right) } { \\left( 1 + \\epsilon _ { A } X _ { A } \\right) ^ { 2 } } - k _ { 2 } C _ { A 0 } \\frac { M ^ { \\prime } + X _ { A } } { 1 + \\epsilon _ { A } X _ { A } }", "train_42164.jpg\t\\cot \\left( \\omega \\theta \\right) \\rightarrow T = \\frac { \\pi } { \\omega }", "train_85622.jpg\tt _ { 0 . 0 2 5 } \\left( 3 \\right) = t _ { 0 . 0 2 5 } 3", "train_19099.jpg\tF _ { \\theta f } = 2 \\times \\left( 1 \\times 2 0 0 ^ { \\circ } / s \\times \\frac { \\pi } { 1 8 0 ^ { \\circ } } + 2 x - 0 . 5 m / s \\times - 5 0 ^ { \\circ } / s \\times \\frac { \\pi } { 1 8 0 ^ { \\circ } } \\right.", "train_20883.jpg\t5 4 \\div \\left( 6 \\times 3 \\right) =", "train_19579.jpg\t1 0 % 0 % \\Rightarrow 1 0 %", "train_62242.jpg\t= \\left( \\delta _ { { j m } } \\delta _ { k i } - \\delta _ { j i } \\delta _ { k m } \\right) a _ { i } b _ { j } - C _ { k } e _ { m }", "train_00431.jpg\tf ^ { \\prime } \\left( 1 \\right) = 3 a + b = 0", "train_90025.jpg\t1 5 + 4 - 9 =", "train_52164.jpg\t2 ^ { 0 } \\times 3 ^ { 0 } \\times 5 ^ { 0 } = 1", "train_43898.jpg\ta \\times \\left( b \\times c \\right) = \\left( a \\cdot c \\right) b - \\left( a \\cdot b \\right) c", "train_14710.jpg\t\\Rightarrow N _ { A } = 1 6 4 3 N", "train_78915.jpg\ta _ { n } = \\frac { v _ { c } ^ { 2 } } { \\rho _ { c } } = \\frac { 1 9 3 . 2 1 m ^ { 2 } / s ^ { 2 } } { 1 5 0 m } = 1 . 2 8 m / s ^ { 2 }", "train_44759.jpg\t- m g \\cos \\theta + N = 0", "train_41782.jpg\t\\Rightarrow v _ { 0 x } = 2 8 m / s", "train_21900.jpg\t\\int \\left( x ^ { 4 } - 4 x ^ { 3 } + x ^ { 2 } - 3 x + 2 \\right) d x =", "train_55120.jpg\t1 0 % - 1 0 % \\Rightarrow 0 %", "train_04910.jpg\t- 1 2 x y + 2 0 y + \\left( 8 x ^ { 3 } - 1 2 x ^ { 2 } y + 2 0 x ^ { 2 } \\right) \\times \\frac { 1 } { 4 x ^ { 2 } }", "train_99566.jpg\t\\cos \\left( w \\theta \\right) \\rightarrow T = \\frac { 2 \\pi } { w }"], "blur_image": ["train_64723.jpg\t4 x ^ { 2 } + 6 x", "train_94588.jpg\t2 x - 3 y - 1 3 =", "train_69251.jpg\ty = \\pi ^ { x ^ { 3 } }", "train_08399.jpg\t\\beta = 0 ,", "train_05521.jpg\tA B =", "train_68942.jpg\tx > 0 , y > 0", "train_39043.jpg\tt = b", "train_48358.jpg\t= - 8", "train_62702.jpg\t\\left( x - 1 \\right)", "train_36823.jpg\tx ^ { 2 } = 1", "train_30082.jpg\tx = 9", "train_46900.jpg\t+ \\frac { 6 } { 2 1 } =", "train_83292.jpg\t3 0 4 \\times 3", "train_90074.jpg\tP \\subset Q", "train_14238.jpg\tx = 1", "train_05512.jpg\tx = - \\frac { 2 } { 7 }", "train_39941.jpg\t\\sin 6 0 ^ { \\circ } \\times \\tan 6 0 ^ { \\circ } =", "train_00590.jpg\t1 1 - 9 = 2", "train_94912.jpg\tZ \\overline { Z }", "train_12577.jpg\t\\left( a + 5 \\right) x"]}
+{
+  "\\dot": [
+    "train_77829.jpg\t0 . 6 \\dot a \\dot b =",
+    "train_92548.jpg\t\\dot { e } _ { r }",
+    "train_10695.jpg\t- m g \\cos \\theta + F _ { \\theta f } = m a _ { \\theta } = m \\left( r \\ddot { \\theta } + 2 \\dot { r } \\dot { \\theta } \\right)"
+  ],
+  "%": [
+    "train_96605.jpg\t4 9 % \\pm \\frac { 3 } { 2 } \\times 6 %",
+    "train_24297.jpg\tk = R f + \\left[ E \\left( R m \\right) - R f \\right] , k = 3 % + 0 . 5 \\left[ 1 1 % - 3 % \\right] = 3 % + 4 % = 7 %",
+    "train_78289.jpg\t\\frac { 6 0 0 } { 2 0 0 0 } = \\frac { 3 0 } { 1 0 0 } = 3 0 %"
+  ],
+  "\\varnothing": [
+    "train_71506.jpg\tA \\circ \\varnothing = \\varnothing \\circ A = A \\left( \\right.",
+    "train_38769.jpg\tp = \\varnothing",
+    "train_56303.jpg\tP \\left( A \\right) = \\left\\{ \\varnothing , \\left\\{ a \\right\\} , \\left\\{ b \\right\\} , \\left\\{ c \\right\\} , \\left\\{ a , b \\right\\} , \\left\\{ b , c \\right\\} , \\left\\{ c , a \\right\\} , \\left\\{ a , b , c \\right\\} \\right\\}"
+  ],
+  "\\subset": [
+    "train_09680.jpg\t{ N } \\left( A \\right) \\subset { N } \\left( A ^ { { T } } A \\right)",
+    "train_47962.jpg\tA \\left( x _ { 1 } , y _ { 1 } \\right) B \\left( x _ { 2 } , y _ { 2 } \\right) \\subset \\left( x _ { 3 } , y _ { 3 } \\right)",
+    "train_35509.jpg\t\\Leftrightarrow B ^ { c } \\subset A ^ { c } \\Leftrightarrow A ^ { c } \\cup B = U"
+  ],
+  "\\because": [
+    "train_63065.jpg\t\\left( \\because x + 1 > 0 , x - 1 < 0 \\right)",
+    "train_83078.jpg\t\\left( \\because x < 0 \\right)",
+    "train_39871.jpg\t\\because | z | < 1"
+  ],
+  "\\approx": [
+    "train_84400.jpg\t\\approx 1 6 \\left( \\frac { 1 } { 5 } - \\frac { 1 } { 3 \\cdot 5 ^ { 3 } } + \\cdots + \\left( - 1 \\right) ^ { n } \\frac { 1 } { \\left( 2 n + 1 \\right) 5 ^ { 2 n + 1 } } \\right)",
+    "train_94187.jpg\tG a l \\left( Q \\left( \\beta \\right) / Q \\right) \\approx U \\left( 1 5 \\right) \\approx U \\left( 5 \\right) \\oplus U \\left( 3 \\right) \\approx Z _ { 4 } \\oplus Z _ { 2 }",
+    "train_37052.jpg\tW \\approx \\sum _ { x _ { i } } ^ { x _ { j } } F _ { x } \\Delta x"
+  ],
+  "\\equiv": [
+    "train_12310.jpg\tp _ { t } \\equiv P r \\left[ S _ { t } = 0 | s _ { t - 1 } = 1 , x _ { t } \\right]",
+    "train_19333.jpg\t\\triangle { O A M } \\equiv \\triangle { O C N }",
+    "train_04688.jpg\tp \\equiv \\frac { d E } { d t }"
+  ],
+  "\\geqq": [
+    "train_12499.jpg\ty \\geqq 0",
+    "train_33699.jpg\tD \\geqq 0 ,",
+    "train_14924.jpg\t\\left| a \\right| \\geqq 0 , \\left| a \\right| = \\left| - a \\right| , - \\left| a \\right| \\leqq a \\leqq \\left| a \\right|"
+  ],
+  "\\cot": [
+    "train_16644.jpg\ty ^ { \\prime } = \\frac { \\cos x } { \\sin x } = \\cot x",
+    "train_65215.jpg\ty = \\cot x \\rightharpoonup y ^ { \\prime } = - \\csc ^ { 2 } x",
+    "train_81247.jpg\t\\int \\csc x d x = - \\ln | \\csc x + \\cot x | +"
+  ],
+  "\\sinh": [
+    "train_91085.jpg\t\\cosh y + x \\sinh y \\cdot y ^ { \\prime } + y ^ { \\prime } \\sinh x",
+    "train_31325.jpg\t= 2 y x ^ { - 1 } \\left( \\frac { e ^ { y ^ { 2 } x ^ { - 1 } } - e ^ { - y ^ { 2 } x ^ { - 1 } } } { 2 } \\right) = 2 y x ^ { - 1 } \\sinh \\left( y ^ { 2 } / x \\right)",
+    "train_66015.jpg\t\\csch x = \\frac { 1 } { \\sinh x } = \\frac { 2 } { e ^ { x } - e ^ { - x } }"
+  ],
+  "\\sec": [
+    "train_28368.jpg\t\\left. \\left. x \\right| ^ { - 1 } \\right) \\ln \\left( 1 / \\left| \\cos x \\right| \\right) = \\ln \\left| \\sec x \\right|",
+    "train_89162.jpg\ty = \\sec \\left( x ^ { 2 } - 3 \\right)",
+    "train_53775.jpg\tT = 0 . 1 \\sec /"
+  ],
+  "\\cosh": [
+    "train_32784.jpg\t\\tanh x = \\frac { \\sinh x } { \\cosh x }",
+    "train_65499.jpg\t\\frac { d } { d x } \\left( \\cosh ^ { - 1 } x \\right) = \\frac { 1 } { \\sqrt { x ^ { 2 } - 1 } }",
+    "train_52122.jpg\tf _ { y } = e ^ { x } \\cosh y + 3 \\sin \\left( 2 x - 3 y \\right) \\rightarrow f _ { y x } = e ^ { x } \\cosh y + 6 \\cos \\left( 2 x - 3 y \\right)"
+  ],
+  "\\csc": [
+    "train_81669.jpg\t\\int \\csc x \\cot x d x = - \\csc x + C",
+    "train_44856.jpg\ty ^ { \\prime } = - \\csc ^ { 2 } x",
+    "train_26745.jpg\ty ^ { \\prime \\prime } = - \\csc ^ { 2 } x"
+  ],
+  "\\triangle": [
+    "train_06608.jpg\t\\triangle B D P \\sim \\triangle A C P",
+    "train_20249.jpg\t\\triangle - 1 - 1",
+    "train_82767.jpg\t\\overline { A F } = \\triangle A B C"
+  ],
+  "\\perp": [
+    "train_12143.jpg\t\\overrightarrow { a } \\perp \\overrightarrow { b } \\Leftrightarrow \\overrightarrow { a } \\cdot \\overrightarrow { b } = 0 \\Leftrightarrow a _ { 1 } b _ { 1 } + a _ { 2 } b _ { 2 } = 0",
+    "train_70712.jpg\t\\overline { { A B } } \\perp \\overline { { D E } }",
+    "train_68939.jpg\t\\overline { { A B } } \\perp \\overline { { O M } } , \\overline { { C D } } \\perp \\overline { { O N } }"
+  ],
+  "\\nabla": [
+    "train_01736.jpg\t\\sum { V } \\cdot d \\sigma = \\sum \\nabla \\cdot V d \\tau",
+    "train_55839.jpg\td i v \\left( g r a d f \\right) = \\nabla ^ { 2 } f .",
+    "train_82396.jpg\t\\Rightarrow { g r a d } \\phi = \\nabla \\phi = \\overline { i } 2 x y ^ { 3 } z ^ { 2 } + \\overline { j } x ^ { 2 } 3 y ^ { 2 } + z ^ { 2 }"
+  ],
+  "\\min": [
+    "train_61827.jpg\ty _ { 0 } = \\frac { \\min _ { i = 1 } ^ { n } { e i } \\left( 1 \\right) } { 2 } > 0",
+    "train_64793.jpg\tR _ { 0 } = N _ { 0 } \\lambda = N _ { 0 } \\frac { 0 . 6 9 3 } { T _ { 1 / 2 } } = \\left( 1 . 9 2 \\times 1 0 ^ { 1 7 } \\right) \\frac { 0 . 6 9 3 } { 2 0 . 4 \\min } \\left( \\frac { 1 \\min } { 6 0 \\ s } \\right)",
+    "train_96007.jpg\tf \\left( x ^ { * } \\right) = \\min { } _ { x \\in \\Omega } f \\left( x \\right)"
+  ],
+  "\\max": [
+    "train_62773.jpg\ta _ { y , \\max } = \\omega ^ { 2 } A",
+    "train_48042.jpg\tK _ { \\max } + \\phi = h f",
+    "train_33973.jpg\tI = \\frac { \\left( \\Delta P _ { \\max } \\right) ^ { 2 } } { 2 \\rho v }"
+  ],
+  ";": [
+    "train_09217.jpg\t\\epsilon = < T ; I R ^ { l } ; \\left( X \\left( t \\right) \\right) _ { t \\in T } ; \\left( e \\left( t \\right) \\right) _ { t \\in T }",
+    "train_03301.jpg\t= \\frac { 3 } { 2 } \\cdot \\frac { 1 } { \\left( \\frac { a } { b } \\right) ^ { 1 / 3 } + \\left( \\frac { b } { a } \\right) ^ { 1 / 3 } } = \\frac { 3 } { 2 } \\cdot \\frac { 1 } { \\frac { \\sqrt { 3 } } { 2 } } = \\sqrt { 3 } ; \\therefore \\theta = 6 0 ^ { \\circ } = \\frac { \\pi } { 3 }",
+    "train_68949.jpg\t\\epsilon = < T ; I R ^ { l } ; \\left( X \\left( t \\right) \\right) _ { t \\in T } ; \\left( e \\left( t \\right) \\right) _ { t \\in T } \\right."
+  ],
+  "\\varphi": [
+    "train_48035.jpg\tp _ { i } \\left( a \\right) \\cap \\varphi _ { i } \\left( a \\right) = \\phi",
+    "train_81597.jpg\t= \\varphi _ { i } \\left( a ^ { * } \\right)",
+    "train_75601.jpg\t\\varphi _ c \\frac { z \\cosh \\pi z } { z ^ { 4 } + 1 3 z ^ { 2 } + 3 6 } d z , \\left| z \\right| = \\pi"
+  ],
+  "\\tau": [
+    "train_77534.jpg\tz \\left( t \\tau _ { t } x \\left( t \\right) \\right.",
+    "train_41579.jpg\t\\epsilon < T : \\tau R",
+    "train_45735.jpg\tT ^ { \\prime } \\left( s \\right) = \\frac { 1 } { \\tau s + 1 } \\cdot \\frac { Q \\left( s \\right) } { W C } + \\frac { T _ { i } ^ { \\prime } \\left( s \\right) } { \\tau s + 1 }"
+  ],
+  "\\rho": [
+    "train_98422.jpg\t\\rho Y _ { t - 1 } = \\rho \\beta X _ { t - 1 } + \\rho e _ { t }",
+    "train_07617.jpg\ta _ { n } = \\frac { v _ { A } ^ { 2 } } { \\rho _ { A } } = \\frac { \\left( 2 2 m / s \\right) ^ { 2 } } { 4 0 m } = 1 2 . 1 m / s ^ { 2 }",
+    "train_91325.jpg\t\\rho = 8 0 m"
+  ],
+  "\\delta": [
+    "train_20206.jpg\tH _ { 0 } : M _ { 1 } - M _ { 2 } = \\delta _ { 0 }",
+    "train_92111.jpg\tp ^ { \\delta t } \\left( p , y \\right) = y",
+    "train_72777.jpg\tf l \\left( a ^ { \\prime } \\div b ^ { \\prime } \\right) = \\left( a ^ { \\prime } \\div b ^ { \\prime } \\right) \\left( 1 + \\delta _ { 4 } \\right)"
+  ],
+  "\\nu": [
+    "train_99840.jpg\t\\left( r + \\nu \\right) \\left( r - \\nu \\right) = 0",
+    "train_74535.jpg\t= \\frac { 2 } { \\pi ^ { 1 / 2 } \\left( \\nu - \\frac { 1 } { 2 } \\right) ! } \\left( \\frac { z } { 2 } \\right) ^ { \\nu } \\int _ { 0 } ^ { \\pi / 2 } \\cosh \\left( z \\cos \\theta \\right) \\sin ^ { 2 \\nu } \\theta d \\theta",
+    "train_10018.jpg\tN _ { \\nu } \\left( z \\right) = \\sqrt { \\frac { 2 } { \\pi z } } \\left\\{ P _ { \\nu } \\left( z \\right) \\sin \\left[ z - \\left( \\nu + \\frac { 1 } { 2 } \\right) \\frac { \\pi } { 2 } \\right] \\right."
+  ],
+  "\\end{matrix}": [
+    "train_58503.jpg\t= \\left[ \\begin{matrix} s & - 1 \\\\ 1 & s + 2 \\end{matrix} \\right]",
+    "train_78326.jpg\tA = \\left( \\begin{matrix} 2 & 3 \\\\ 1 & 4 \\\\ 5 & 6 \\end{matrix} \\right) , B = \\left( \\begin{matrix} 1 & 0 & 3 \\\\ - 1 & 2 & 5 \\end{matrix} \\right)",
+    "train_38396.jpg\t= \\left\\{ \\begin{matrix} \\sigma ^ { 2 } \\sum _ { i = 0 } ^ { q - k } \\beta _ { i } \\beta _ { i + k } \\\\ 0 \\end{matrix} \\right."
+  ],
+  "\\begin{matrix}": [
+    "train_04025.jpg\t\\overrightarrow { O T } = \\frac { m \\overrightarrow { O Q } + n \\overrightarrow { O P } } { m + n } = \\frac { 1 } { m + n } \\left[ m \\left[ \\begin{matrix} 2 \\\\ 3 \\end{matrix} \\right] + n \\left[ \\begin{matrix} { l } 1 \\\\ 2 \\end{matrix} \\right] \\right] = \\frac { 1 } { m + n } \\left[ \\begin{matrix} { l } 2 m + n \\\\ 3 m + 2 n \\end{matrix} \\right]",
+    "train_02245.jpg\t\\left\\{ \\begin{matrix} x ^ { 2 } - y ^ { 2 } - 2 x + y = 0 \\\\ 2 x ^ { 2 } - 2 y ^ { 2 } + x + 3 y = 1 \\end{matrix} \\right.",
+    "train_73792.jpg\t= \\left( \\begin{matrix} 1 & 0 & 3 \\\\ 2 & 3 & - 1 \\\\ 0 & 4 & 1 \\end{matrix} \\right) = A"
+  ],
+  "\\sum": [
+    "train_84519.jpg\tP \\left( x _ { i } \\leq { X } \\leq { x } _ { j } \\right) = \\sum _ { k = i } ^ { j } P \\left( X = x _ { k } \\right)",
+    "train_92217.jpg\tS _ { n } = \\sum _ { k = 1 } ^ { n } a _ { k } = \\frac { a + l } { 2 } \\times n \\rightarrow = \\frac { n \\left( 2 a + \\left( n - 1 \\right) d \\right) } { 2 }",
+    "train_10680.jpg\t\\nabla _ { X } z = \\sum _ { j } \\left( \\nabla _ { X } Y _ { j } \\right) \\frac { \\partial z } { \\partial Y _ { j } } ."
+  ],
+  "long_height": [
+    "train_21830.jpg\tp \\left( \\log _ { a } x \\right) ^ { 2 } + q \\left( \\log _ { a } x \\right) + r < 0",
+    "train_66304.jpg\ty = f ^ { \\prime } \\left( \\alpha \\right) \\left( x - \\alpha \\right) + f \\left( \\alpha \\right) , y = g ^ { \\prime } \\left( \\beta \\right) \\left( x - \\beta \\right) + g \\left( \\beta \\right)",
+    "train_74319.jpg\tm g \\sin \\theta - \\mu _ { k } N = m a _ { x } \\Rightarrow m g \\sin \\theta - \\mu _ { k } \\cdot m g \\cos \\theta = m a _ { x }",
+    "train_93932.jpg\t\\log _ { a } a = 1 , \\log _ { a } 1 = 0",
+    "train_08973.jpg\tx ^ { 2 } - \\left( 1 - \\sqrt { 5 } + 1 + \\sqrt { 5 } \\right) x + \\left( 1 - \\sqrt { 5 } \\right) \\left( 1 + \\sqrt { 5 } \\right) = 0",
+    "train_14333.jpg\t1 0 2 ^ { 2 } = \\left( 1 0 0 + 2 \\right) ^ { 2 } = 1 0 0 ^ { 2 } + 2 \\times 1 0 0 \\times 2 + 2 ^ { 2 }",
+    "train_87280.jpg\t{ } _ { n } C _ { 0 } \\times { } _ { n } C _ { n } + { } _ { n } C _ { 1 } \\times { } _ { n } C _ { n - 1 } + { } _ { n } C _ { 2 } \\times { } _ { n } C _ { n - 2 } + \\cdots + { } _ { n } C _ { b } \\times { } _ { n } C _ { 0 } = { } _ { n + n }",
+    "train_47573.jpg\t\\left( a + d \\right) + \\left( a + 2 d \\right) = 2 \\left( a + 1 2 \\right) , 3 d = 2 4",
+    "train_33280.jpg\t\\left( \\sqrt { 6 } + 2 \\right) ^ { 2 } - \\left( \\sqrt { 2 } + 3 \\right) \\left( \\sqrt { 2 } - 3 \\right) = \\left( 6 + 4 \\sqrt { 6 } + 4 \\right) - \\left( 2 - 9 \\right)",
+    "train_70191.jpg\t{ } _ { n } P _ { n } = n \\left( n - 1 \\right) \\left( n - 2 \\right) \\times \\cdots \\times 2 \\times 1 = n !",
+    "train_22172.jpg\tE \\left( R _ { P } \\right) = w R _ { f } + \\left( 1 - w \\right) E \\left( R _ { M } \\right)",
+    "train_64844.jpg\t\\left( n - r \\right) \\left( n - r - 1 \\right) \\left( n - r - 2 \\right) \\times \\cdots",
+    "train_80575.jpg\t\\left( x _ { 2 } , y _ { 2 } , z _ { 2 } \\right) = \\left( - 1 . 9 3 1 , 5 . 3 5 0 , 2 . 8 2 5 \\right)",
+    "train_52311.jpg\t{ } _ { 5 } C _ { 1 } + { } _ { 6 } C _ { 2 } + \\cdots + { } _ { 9 } C _ { 5 }",
+    "train_42594.jpg\t= \\left\\{ z - \\frac { 1 } { 2 } \\left( 1 + \\sqrt { 3 } i \\right) x - \\frac { 1 } { 2 } \\left( 1 - \\sqrt { 3 } i \\right) y \\right\\} \\left\\{ z - \\frac { 1 } { 2 } \\left( 1 - \\sqrt { 3 } i \\right) x - \\frac { 1 } { 2 } \\left( 1 + \\sqrt { 3 } i \\right) y \\right\\}",
+    "train_61626.jpg\t\\therefore y = c _ { 1 } e ^ { - 2 x } + c _ { 2 } x e ^ { - 2 x } + e ^ { - x } \\cdot 0 . 5 \\sin x",
+    "train_40245.jpg\t\\overline { B C } = \\sqrt { \\left( 8 - 2 \\right) ^ { 2 } + \\left( - 1 - 3 \\right) ^ { 2 } } = \\sqrt { 5 2 } = 2 \\sqrt { 1 3 }",
+    "train_98869.jpg\t- \\alpha f ^ { \\prime } \\left( \\alpha \\right) + f \\left( \\alpha \\right) = - \\beta g ^ { \\prime } \\left( \\beta \\right) + g \\left( \\beta \\right)",
+    "train_54810.jpg\t= a ^ { 3 } + \\left( - 2 b \\right) ^ { 3 } + \\left( 3 c \\right) ^ { 3 } - 3 \\times a \\times \\left( - 2 b \\right) \\times 3 c",
+    "train_48094.jpg\t\\therefore { f \\left( x \\right) } = \\left( x - 1 \\right) ^ { 2 } \\left( x + 1 \\right) Q \\left( x \\right) + a \\left( x - 1 \\right) ^ { 2 } + 3 x + 2",
+    "train_90682.jpg\t9 a ^ { 2 } - b ^ { 2 } = \\left( 3 a \\right) ^ { 2 } - b ^ { 2 } = \\left( 3 a + b \\right) \\left( 3 a - b \\right)",
+    "train_03774.jpg\t= 2 x ^ { 2 } - x + 3 + 3 x ^ { 2 } + 4 x - 5",
+    "train_39549.jpg\ta \\times \\left( b \\times c \\right) = a \\times b \\times a \\times c =",
+    "train_16510.jpg\t\\sinh \\left( x - y \\right) = \\sinh x \\cosh x - \\cosh x \\sinh x",
+    "train_88159.jpg\tE \\left( Z \\right) = 0 . 5 E \\left( X \\right) + 0 . 5 E \\left( Y \\right) = 0 . 5 \\left( 9 + 7 \\right) = 8 \\left( % \\right)",
+    "train_21766.jpg\t= \\left( 0 . 0 0 5 2 2 9 u \\right) \\times 9 3 1 . 4 9 4 \\ M e V / u",
+    "train_86772.jpg\t2 \\log _ { 2 7 } \\left( 6 - 2 \\sqrt { 3 } \\right) + \\log _ { 2 7 } \\left( 2 + \\sqrt { 3 } \\right) - 2 \\log _ { 2 7 } 2 \\sqrt { 2 }",
+    "train_68720.jpg\t\\left( \\sqrt { 2 } + \\sqrt { 3 } \\right) - \\left( 2 + \\sqrt { 3 } \\right) = \\sqrt { 2 } - 2 < 0",
+    "train_09557.jpg\t\\alpha ^ { 3 } + \\beta ^ { 3 } + \\gamma ^ { 3 } = \\left( \\alpha + \\beta + \\gamma \\right) \\left( \\alpha ^ { 2 } + \\beta ^ { 2 } + \\gamma ^ { 2 } - \\alpha \\beta - \\beta \\gamma - \\gamma \\alpha \\right) + 3 \\alpha \\beta \\gamma",
+    "train_43619.jpg\t\\left( P _ { 1 } - P _ { 2 } \\right) V = { \\frac { 1 } { 2 } m v _ { 2 } } ^ { 2 } - { \\frac { 1 } { 2 } m v _ { 1 } } ^ { 2 } + m g y _ { 2 } - m g y _ { 1 }"
+  ],
+  "long_width": [
+    "train_03172.jpg\t- m g \\sin \\theta + F _ { f r } = m a _ { r } = m \\left( \\ddot r - r \\dot \\theta ^ { 2 } \\right)",
+    "train_07974.jpg\t= k _ { 1 } C _ { A 0 } ^ { 2 } \\frac { \\left( 1 - X _ { A } \\right) \\left( M - X _ { A } \\right) } { \\left( 1 + \\epsilon _ { A } X _ { A } \\right) ^ { 2 } } - k _ { 2 } C _ { A 0 } \\frac { M ^ { \\prime } + X _ { A } } { 1 + \\epsilon _ { A } X _ { A } }",
+    "train_42164.jpg\t\\cot \\left( \\omega \\theta \\right) \\rightarrow T = \\frac { \\pi } { \\omega }",
+    "train_85622.jpg\tt _ { 0 . 0 2 5 } \\left( 3 \\right) = t _ { 0 . 0 2 5 } 3",
+    "train_19099.jpg\tF _ { \\theta f } = 2 \\times \\left( 1 \\times 2 0 0 ^ { \\circ } / s \\times \\frac { \\pi } { 1 8 0 ^ { \\circ } } + 2 x - 0 . 5 m / s \\times - 5 0 ^ { \\circ } / s \\times \\frac { \\pi } { 1 8 0 ^ { \\circ } } \\right.",
+    "train_20883.jpg\t5 4 \\div \\left( 6 \\times 3 \\right) =",
+    "train_19579.jpg\t1 0 % 0 % \\Rightarrow 1 0 %",
+    "train_62242.jpg\t= \\left( \\delta _ { { j m } } \\delta _ { k i } - \\delta _ { j i } \\delta _ { k m } \\right) a _ { i } b _ { j } - C _ { k } e _ { m }",
+    "train_00431.jpg\tf ^ { \\prime } \\left( 1 \\right) = 3 a + b = 0",
+    "train_90025.jpg\t1 5 + 4 - 9 =",
+    "train_52164.jpg\t2 ^ { 0 } \\times 3 ^ { 0 } \\times 5 ^ { 0 } = 1",
+    "train_43898.jpg\ta \\times \\left( b \\times c \\right) = \\left( a \\cdot c \\right) b - \\left( a \\cdot b \\right) c",
+    "train_14710.jpg\t\\Rightarrow N _ { A } = 1 6 4 3 N",
+    "train_78915.jpg\ta _ { n } = \\frac { v _ { c } ^ { 2 } } { \\rho _ { c } } = \\frac { 1 9 3 . 2 1 m ^ { 2 } / s ^ { 2 } } { 1 5 0 m } = 1 . 2 8 m / s ^ { 2 }",
+    "train_44759.jpg\t- m g \\cos \\theta + N = 0",
+    "train_41782.jpg\t\\Rightarrow v _ { 0 x } = 2 8 m / s",
+    "train_21900.jpg\t\\int \\left( x ^ { 4 } - 4 x ^ { 3 } + x ^ { 2 } - 3 x + 2 \\right) d x =",
+    "train_55120.jpg\t1 0 % - 1 0 % \\Rightarrow 0 %",
+    "train_04910.jpg\t- 1 2 x y + 2 0 y + \\left( 8 x ^ { 3 } - 1 2 x ^ { 2 } y + 2 0 x ^ { 2 } \\right) \\times \\frac { 1 } { 4 x ^ { 2 } }",
+    "train_99566.jpg\t\\cos \\left( w \\theta \\right) \\rightarrow T = \\frac { 2 \\pi } { w }"
+  ],
+  "blur_image": [
+    "train_64723.jpg\t4 x ^ { 2 } + 6 x",
+    "train_94588.jpg\t2 x - 3 y - 1 3 =",
+    "train_69251.jpg\ty = \\pi ^ { x ^ { 3 } }",
+    "train_08399.jpg\t\\beta = 0 ,",
+    "train_05521.jpg\tA B =",
+    "train_68942.jpg\tx > 0 , y > 0",
+    "train_39043.jpg\tt = b",
+    "train_48358.jpg\t= - 8",
+    "train_62702.jpg\t\\left( x - 1 \\right)",
+    "train_36823.jpg\tx ^ { 2 } = 1",
+    "train_30082.jpg\tx = 9",
+    "train_46900.jpg\t+ \\frac { 6 } { 2 1 } =",
+    "train_83292.jpg\t3 0 4 \\times 3",
+    "train_90074.jpg\tP \\subset Q",
+    "train_14238.jpg\tx = 1",
+    "train_05512.jpg\tx = - \\frac { 2 } { 7 }",
+    "train_39941.jpg\t\\sin 6 0 ^ { \\circ } \\times \\tan 6 0 ^ { \\circ } =",
+    "train_00590.jpg\t1 1 - 9 = 2",
+    "train_94912.jpg\tZ \\overline { Z }",
+    "train_12577.jpg\t\\left( a + 5 \\right) x"
+  ]
+}
