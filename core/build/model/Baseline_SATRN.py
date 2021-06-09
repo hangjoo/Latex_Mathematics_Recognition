@@ -323,6 +323,7 @@ class TransformerDecoderLayer(nn.Module):
 
             ff = self.feedforward_layer(out)
             out = self.feedforward_norm(ff + out)
+
         return out
 
 
