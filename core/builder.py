@@ -6,6 +6,7 @@ from .build.model import CSTR
 
 # losses
 from torch.nn import CrossEntropyLoss
+from .build.loss import LabelSmoothingCrossEntropy
 
 # optimizers
 from torch.optim import SGD, Adam, adadelta, AdamW
@@ -25,6 +26,7 @@ model_list = {
 
 loss_list = {
     "CrossEntropyLoss": CrossEntropyLoss,
+    "LabelSmoothingCrossEntropy": LabelSmoothingCrossEntropy,
 }
 
 optim_list = {
