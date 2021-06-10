@@ -93,7 +93,8 @@ def main(config_file):
         model.load_state_dict(ckpt["model_state"])
     model.train()
 
-    criterion = get_loss(config)
+    # ignore index
+    criterion = get_loss(config, ignore_index=tokenizer.token_to_id[tokenizer.END_TOKEN])
     params_to_optimise = [param for param in model.parameters() if param.requires_grad]
     print(
         "[+] Model\n",
@@ -112,8 +113,7 @@ def main(config_file):
     optimizer = get_optimizer(config, params_to_optimise)
     if ckpt["optim_state"]:
         optimizer.load_state_dict(ckpt["optim_state"])
-    # for param_group in optimizer.param_groups:
-    #     param_group["initial_lr"] = config.optimizer.lr
+
     print("[+] Optimizer")
     optim_config = config.optimizer._asdict()
     optim_type = optim_config.pop("type")
@@ -143,7 +143,7 @@ def main(config_file):
     wandb.watch(models=model, criterion=criterion, log="all")
 
     # train model
-    best_score = 0
+    best_score = 0.0
     for epoch_i in range(ckpt["epoch"], config.train_config.num_epochs):
         start_time = time.time()
 
@@ -229,6 +229,9 @@ def main(config_file):
             best_score = valid_score
             save_checkpoint(ckpt, dir=".", prefix=config.prefix, base_name="best_score")
             wandb.save(glob_str=os.path.join(config.prefix, "best_score.pth"))
+            print()
+            print(f'...Best Score Update! Epoch {epoch_i + 1}...')
+            print()
 
         # log write.
         elapsed_time = time.time() - start_time
@@ -255,16 +258,14 @@ def main(config_file):
                 {
                     "epoch": epoch_i + 1,
                     "lr": epoch_lr,
-                    "train/symbol_acc": train_symbol_acc,
-                    "train/sentence_acc": train_sent_acc,
+                    "train/sent_acc": train_sent_acc,
                     "train/wer": train_wer,
                     "train/loss": train_loss,
                     "train/score": train_score,
-                    "valid/symbol_acc": valid_symbol_acc,
-                    "valid/sentence_acc": valid_sent_acc,
-                    "valid/wer": valid_wer,
-                    "valid/loss": valid_loss,
-                    "valid/score": valid_score,
+                    "validation/sent_acc": valid_sent_acc,
+                    "validation/wer": valid_wer,
+                    "validation/loss": valid_loss,
+                    "validation/score": valid_score,
                 }
             )
 

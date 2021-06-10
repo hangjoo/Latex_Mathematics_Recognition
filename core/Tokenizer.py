@@ -33,13 +33,17 @@ class Tokenizer:
         decode_sent = ""
         for token in tokens:
             token = token.item()
-            if do_eval:  # decode excluding SPECIAL TOKENS.
+            # decode excluding SPECIAL TOKENS.
+            if do_eval:  
                 if self.id_to_token[token] not in self.SPECIAL_TOKENS:
                     decode_sent += self.id_to_token[token] + " "
-            else:  # decode all tokens.
+            
+            # decode all tokens.
+            else:  
                 decode_sent += self.id_to_token[token] + " "
+
             # if encount END token, stop decoding.
             if self.id_to_token[token] == self.END_TOKEN:
-                break
+                break   
 
         return decode_sent
