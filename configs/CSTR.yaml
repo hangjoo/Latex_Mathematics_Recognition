@@ -1,4 +1,6 @@
 # CSTR model does not define in yaml file
+model:
+  type: "CSTR"
 loss:
   type: "LabelSmoothingCrossEntropy"  #LabelSmoothingCrossEntropy loss need to be define
 optimizer:
