@@ -7,7 +7,7 @@ from .build.model import SATRN
 from torch.nn import CrossEntropyLoss
 
 # optimizers
-from torch.optim import SGD, Adam, adadelta
+from torch.optim import SGD, Adam, adadelta, AdamW
 
 # schedulers
 from torch.optim.lr_scheduler import StepLR
@@ -29,6 +29,7 @@ optim_list = {
     "SGD": SGD,
     "Adam": Adam,
     "adadelta": adadelta,
+    "AdamW": AdamW,
 }
 
 iter_scheduler_list = {
@@ -54,7 +55,7 @@ def get_model(config, tokenizer, *args, **kwagrs):
 
 def get_loss(config, *args, **kwagrs):
     loss_name = config.loss.type
-
+    
     if loss_name in loss_list:
         loss_fn = loss_list[loss_name](*args, **kwagrs)
     else:
