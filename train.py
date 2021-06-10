@@ -99,8 +99,10 @@ def main(config_file):
     print(
         "[+] Model\n",
         f"Type: {config.model.type}\n",
-        f"Model parameters: {format(sum(p.numel() for p in params_to_optimise), ',')}\n",
+        f"Model parameters: {format(sum(p.numel() for p in params_to_optimise), ',')}",
     )
+    print()
+
     print("[+] Loss")
     loss_config = config.loss._asdict()
     loss_type = loss_config.pop("type")
@@ -229,9 +231,9 @@ def main(config_file):
             best_score = valid_score
             save_checkpoint(ckpt, dir=".", prefix=config.prefix, base_name="best_score")
             wandb.save(glob_str=os.path.join(config.prefix, "best_score.pth"))
-            print()
-            print(f'...Best Score Update! Epoch {epoch_i + 1}...')
-            print()
+            best_flag = True
+        else:
+            best_flag = False
 
         # log write.
         elapsed_time = time.time() - start_time
@@ -252,16 +254,21 @@ def main(config_file):
                 f"lr = {epoch_lr:.4e} "
                 f"(time elapsed {elapsed_str})"
             )
+            if best_flag:
+                output_string += " -> Best Score Update!"
             print(output_string)
             log_file.write(output_string + "\n")
             wandb.log(
                 {
                     "epoch": epoch_i + 1,
                     "lr": epoch_lr,
+                    "elapsed_time": elapsed_time,
+                    "train/symbol_acc": train_symbol_acc,
                     "train/sent_acc": train_sent_acc,
                     "train/wer": train_wer,
                     "train/loss": train_loss,
                     "train/score": train_score,
+                    "validation/symbol_acc": valid_symbol_acc,
                     "validation/sent_acc": valid_sent_acc,
                     "validation/wer": valid_wer,
                     "validation/loss": valid_loss,
@@ -293,22 +300,21 @@ def run_epoch(
         desc="{} ({})".format(epoch_text, "Train" if train else "Validation"), total=len(data_loader.dataset), dynamic_ncols=True, leave=False,
     ) as pbar:
         for d in data_loader:
-            input = d["image"].to(device)
+            images = d["image"].to(device)
+            text_gt = d["truth"]["encoded"].to(device)
 
             # The last batch may not be a full batch
-            curr_batch_size = len(input)
-            expected = d["truth"]["encoded"].to(device)
+            curr_batch_size = len(images)
 
             # Replace -1 with the PAD token
-            expected[expected == -1] = tokenizer.token_to_id[tokenizer.PAD_TOKEN]
+            text_gt[text_gt == -1] = tokenizer.token_to_id[tokenizer.PAD_TOKEN]
 
-            output = model(input, expected, train, teacher_forcing_ratio)
+            output = model(images, text_gt, train, teacher_forcing_ratio)  # [batch_size, token_num, seq_len - 1]
+            output_values = output.transpose(1, 2)  # [batch_size, seq_len - 1, token_num]
+            _, output_id = torch.topk(output_values, 1, dim=1)
+            output_id = output_id.squeeze(1)
 
-            decoded_values = output.transpose(1, 2)
-            _, sequence = torch.topk(decoded_values, 1, dim=1)
-            sequence = sequence.squeeze(1)
-
-            loss = criterion(decoded_values, expected[:, 1:])
+            loss = criterion(output_values, text_gt[:, 1:])
 
             if train:
                 optim_params = [p for param_group in optimizer.param_groups for p in param_group["params"]]
@@ -318,29 +324,31 @@ def run_epoch(
                 grad_norm = nn.utils.clip_grad_norm_(optim_params, max_norm=max_grad_norm)
                 grad_norms.append(grad_norm)
 
-                # cycle
                 optimizer.step()
                 if scheduler and scheduler["type"] == "iter":
                     scheduler["scheduler"].step()
 
             losses.append(loss.item())
 
-            expected_str = [tokenizer.decode(expected_, do_eval=True) for expected_ in expected]
-            sequence_str = [tokenizer.decode(sequence_, do_eval=True) for sequence_ in sequence]
-            wer += word_error_rate(sequence_str, expected_str)
+            gt_str = [tokenizer.decode(gt_, do_eval=True) for gt_ in text_gt]
+            output_str = [tokenizer.decode(sequence_, do_eval=True) for sequence_ in output_id]
+
+            wer += word_error_rate(output_str, gt_str)
             num_wer += 1
-            sent_acc += sentence_acc(sequence_str, expected_str)
+
+            sent_acc += sentence_acc(output_str, gt_str)
             num_sent_acc += 1
-            correct_symbols += torch.sum(sequence == expected[:, 1:], dim=(0, 1)).item()
-            total_symbols += torch.sum(expected[:, 1:] != -1, dim=(0, 1)).item()
+
+            correct_symbols += torch.sum(output_id == text_gt[:, 1:], dim=(0, 1)).item()
+            total_symbols += torch.sum(text_gt[:, 1:] != -1, dim=(0, 1)).item()
 
             pbar.update(curr_batch_size)
 
     if train and scheduler and scheduler["type"] == "epoch":
         scheduler["scheduler"].step()
 
-    expected = [tokenizer.decode(expected_, do_eval=False) for expected_ in expected]
-    sequence = [tokenizer.decode(sequence_, do_eval=False) for sequence_ in sequence]
+    expected = [tokenizer.decode(gt_, do_eval=False) for gt_ in text_gt]
+    sequence = [tokenizer.decode(sequence_, do_eval=False) for sequence_ in output_id]
     print("-" * 10 + "GT ({})".format("train" if train else "valid"))
     print(*expected[:3], sep="\n")
     print("-" * 10 + "PR ({})".format("train" if train else "valid"))
@@ -367,7 +375,7 @@ def run_epoch(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-c", "--config_file", dest="config_file", default="configs/Default_Attention.yaml", type=str, help="Path of configuration file",
+        "-c", "--config_file", dest="config_file", default="configs/SATRN_small.yaml", type=str, help="Path of configuration file",
     )
     parser = parser.parse_args()
     main(parser.config_file)
