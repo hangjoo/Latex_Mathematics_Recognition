@@ -2,6 +2,7 @@
 from .build.model import Baseline_Attention
 from .build.model import Baseline_SATRN
 from .build.model import SATRN
+from .build.model import CSTR
 
 # losses
 from torch.nn import CrossEntropyLoss
@@ -19,6 +20,7 @@ model_list = {
     "Attention": Baseline_Attention,
     "Baseline_SATRN": Baseline_SATRN,
     "SATRN": SATRN,
+    "CSTR": CSTR,
 }
 
 loss_list = {
