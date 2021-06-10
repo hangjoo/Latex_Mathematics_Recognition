@@ -262,7 +262,7 @@ class TransformerDecoder(nn.Module):
     def forward(self, feats, texts=None, is_train=True, max_length=50, teacher_forcing_ratio=1.0):
         if is_train and random.random() < teacher_forcing_ratio:
             if texts is None:
-                raise Exception("In training, texts must be not None.")
+                raise Exception("In training, texts must have to be not None.")
 
             tgt = self.text_embedding(texts)
             tgt = self.pos_encoder(tgt)
@@ -311,6 +311,6 @@ class SATRN(nn.Module):
 
     def forward(self, images, texts=None, is_train=True, teacher_forcing_ratio=1.0):
         enc_result = self.encoder(images)
-        dec_result = self.decoder(enc_result, texts, is_train, texts.size(1), teacher_forcing_ratio)
+        dec_result = self.decoder(enc_result, texts[:, :-1], is_train, texts[:, :-1].size(1), teacher_forcing_ratio)
 
         return dec_result
