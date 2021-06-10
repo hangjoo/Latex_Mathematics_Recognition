@@ -9,7 +9,7 @@ from torch.nn import CrossEntropyLoss
 from .build.loss import LabelSmoothingCrossEntropy
 
 # optimizers
-from torch.optim import SGD, Adam, adadelta, AdamW
+from torch.optim import SGD, Adam, Adadelta, AdamW
 
 # schedulers
 from torch.optim.lr_scheduler import StepLR
@@ -32,7 +32,7 @@ loss_list = {
 optim_list = {
     "SGD": SGD,
     "Adam": Adam,
-    "adadelta": adadelta,
+    "Adadelta": Adadelta,
     "AdamW": AdamW,
 }
 
