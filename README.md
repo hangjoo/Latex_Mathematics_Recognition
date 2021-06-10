@@ -149,7 +149,7 @@ checkpoint: ""
 - [x]  ~~Epoch / Step Scheduler 구별~~
 - [x]  ~~token_to_id, id_to_token → Tokenizer 클래스로 분리해서 사용 → 프로젝트 때 API나 Inference 시에 사용해야하므로 dataset에 종속되게 구현하는 것보다 따로 떼어내서 사용하는 것이 용이함.~~
 - [x]  ~~Albumentation transfrom 구현~~
-- [ ]  loss function → ignore index 추가 → id_to_string 함수 수정 필요
+- [x]  loss function → ignore index 추가 → id_to_string 함수 수정 필요
 - [x]  ~~PAD 토큰을 -1로 변환하는 코드(355라인 in train.py) 제거 → id_to_string에서는 PAD 토큰이 무엇인지 몰라서 -1로 변환~~
 - [ ]  run_epoch 코드 수정
 - [x]  ~~Inference 코드도 맞게 수정~~
