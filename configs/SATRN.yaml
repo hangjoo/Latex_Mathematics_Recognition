@@ -27,7 +27,6 @@ data:
       - "/opt/ml/input/data/train_dataset/gt.txt"
     transforms:
       - "Resize(height=32, width=100)"
-      - "ToGray(p=1.0)"
       - "Normalize(always_apply=True)"
   valid:
     path:
