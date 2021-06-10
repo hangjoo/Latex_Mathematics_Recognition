@@ -166,6 +166,7 @@ def main(config_file):
             config.train_config.max_grad_norm,
             device,
             train=True,
+            config.model.type,
         )
 
         # validation
@@ -181,6 +182,7 @@ def main(config_file):
             config.train_config.max_grad_norm,
             device,
             train=False,
+            config.model.type,
         )
 
         # epoch results.
@@ -278,7 +280,7 @@ def main(config_file):
 
 
 def run_epoch(
-    tokenizer, data_loader, model, criterion, optimizer, scheduler, epoch_text, teacher_forcing_ratio, max_grad_norm, device, train=True,
+    tokenizer, data_loader, model, criterion, optimizer, scheduler, epoch_text, teacher_forcing_ratio, max_grad_norm, device, train=True, model_type,
 ):
     # Disables autograd during validation mode
     torch.set_grad_enabled(train)
@@ -310,6 +312,11 @@ def run_epoch(
             text_gt[text_gt == -1] = tokenizer.token_to_id[tokenizer.PAD_TOKEN]
 
             output = model(images, text_gt, train, teacher_forcing_ratio)  # [batch_size, token_num, seq_len - 1]
+            
+            if model_type=='CSTR':
+                target_length = text_gt.size()[-1]-1
+                output = output[:, :target_length, :]
+            
             output_values = output.transpose(1, 2)  # [batch_size, seq_len - 1, token_num]
             _, output_id = torch.topk(output_values, 1, dim=1)
             output_id = output_id.squeeze(1)

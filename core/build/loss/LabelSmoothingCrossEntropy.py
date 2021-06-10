@@ -12,7 +12,7 @@ class LabelSmoothingCrossEntropy(nn.Module):
         # pred = output.contiguous().view(-1, output.shape[-1])
         # target = target.to(pred.device).contiguous().view(-1)
         # print(pred.size(),)
-
+        output = output.transpose(1, 2)
         c = output.size()[-1]
         log_preds = F.log_softmax(output, dim=-1)
         # ignore index for smooth label
