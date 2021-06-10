@@ -1,0 +1,52 @@
+# CSTR model does not define in yaml file
+loss:
+  type: "LabelSmoothingCrossEntropy"  #LabelSmoothingCrossEntropy loss need to be define
+optimizer:
+  type: "Adadelta"
+  lr: 1
+  weight_decay: 1e-4
+scheduler:
+  type: "StepLR"
+  lr_epochs: 20
+  lr_factor: 0.5
+
+data:
+  train:
+    path:
+      - "/opt/ml/input/data/train_dataset/gt.txt"
+    transforms:
+      - "Resize(height=48, width=192)"
+      - "Normalize(always_apply=True)"
+  valid:
+    path:
+      - ""
+    transforms:
+      - null
+  test:
+    path:
+      - ""
+    transforms:
+      - null
+  token_paths:
+    - "/opt/ml/input/data/train_dataset/tokens.txt"
+  dataset_proportions:  # proportion of data to take from train (not test)
+    - 1.0
+  random_split: True  # if set True, divided to train and validation dataset from train path. valid args would be ignored.
+  test_proportions: 0.2  # factor how many to take from train data for validation.
+  crop: True
+  rgb: False  # True for RGB, False for grayscale
+
+train_config:
+  batch_size: 36
+  num_workers: 8
+  num_epochs: 100
+  print_interval: 1
+  teacher_forcing_ratio: 0.5  # CSTR not use teacher forcing
+  max_grad_norm: 2.0
+seed: 42
+wandb:
+  project: "unnamed"
+  entity: "unnamed"
+  name: "CSTR"
+prefix: "./log/cstr"
+checkpoint: ""
