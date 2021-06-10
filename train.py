@@ -94,7 +94,7 @@ def main(config_file):
     model.train()
 
     # ignore index
-    criterion = get_loss(config, ignore_index=tokenizer.token_to_id[tokenizer.END_TOKEN])
+    criterion = get_loss(config, ignore_index=tokenizer.token_to_id[tokenizer.PAD_TOKEN])
     params_to_optimise = [param for param in model.parameters() if param.requires_grad]
     print(
         "[+] Model\n",
