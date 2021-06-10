@@ -165,8 +165,8 @@ def main(config_file):
             config.train_config.teacher_forcing_ratio,
             config.train_config.max_grad_norm,
             device,
-            train=True,
             config.model.type,
+            train=True,
         )
 
         # validation
@@ -181,8 +181,8 @@ def main(config_file):
             config.train_config.teacher_forcing_ratio,
             config.train_config.max_grad_norm,
             device,
-            train=False,
             config.model.type,
+            train=False,
         )
 
         # epoch results.
@@ -280,7 +280,7 @@ def main(config_file):
 
 
 def run_epoch(
-    tokenizer, data_loader, model, criterion, optimizer, scheduler, epoch_text, teacher_forcing_ratio, max_grad_norm, device, train=True, model_type,
+    tokenizer, data_loader, model, criterion, optimizer, scheduler, epoch_text, teacher_forcing_ratio, max_grad_norm, device, model_type, train=True,
 ):
     # Disables autograd during validation mode
     torch.set_grad_enabled(train)
