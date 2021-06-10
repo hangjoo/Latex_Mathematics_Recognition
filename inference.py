@@ -38,7 +38,7 @@ def main(parser):
 
     # TODO: Define & Apply test transforms.
     tokenizer = ckpt["tokenizer"]
-    transform = config.data.train.transforms
+    transform = config.data.test.transforms
     test_dataset = EvalDataset(test_data, tokenizer, crop=False, transform=transform, rgb=config.data.rgb)
     test_data_loader = DataLoader(
         test_dataset, batch_size=parser.batch_size, shuffle=False, num_workers=config.train_config.num_workers, collate_fn=test_dataset.collate_fn,

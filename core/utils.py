@@ -15,6 +15,9 @@ def set_random_seed(seed):
 
 
 def get_transforms(transforms):
+    if transforms[0] == None:
+        return None
+    
     transform_list = [eval(f"A.{transform}") for transform in transforms]
 
     return A.Compose(transforms=transform_list)
