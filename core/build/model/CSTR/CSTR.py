@@ -7,9 +7,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from .models import build_model
 
-
-from dataset import START, PAD
-
 sensitive = False
 batch_max_length = 300
 
