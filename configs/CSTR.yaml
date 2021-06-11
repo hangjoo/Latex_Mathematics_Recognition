@@ -9,8 +9,8 @@ optimizer:
   weight_decay: 1e-4
 scheduler:
   type: "StepLR"
-  lr_epochs: 20
-  lr_factor: 0.5
+  step_size: 20
+  gamma: 0.5
 
 data:
   train:
@@ -36,7 +36,7 @@ data:
   random_split: True  # if set True, divided to train and validation dataset from train path. valid args would be ignored.
   test_proportions: 0.2  # factor how many to take from train data for validation.
   crop: True
-  rgb: False  # True for RGB, False for grayscale
+  rgb: True  # True for RGB, False for grayscale
 
 train_config:
   batch_size: 36
