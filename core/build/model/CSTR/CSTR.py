@@ -29,7 +29,7 @@ cstr_structure = dict(
                             backbone=dict(
                                 type='GBackbone',
                                 layers=[
-                                    dict(type='ConvModule', in_channels=1, out_channels=32 + base_channel,
+                                    dict(type='ConvModule', in_channels=3, out_channels=32 + base_channel,
                                          kernel_size=3, stride=1, padding=1, norm_cfg=norm_cfg),  # 48, 192
                                     dict(type='ConvModule', in_channels=32 + base_channel,
                                          out_channels=64 + base_channel * 2, kernel_size=3,
