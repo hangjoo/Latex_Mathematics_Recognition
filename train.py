@@ -269,7 +269,7 @@ def main(config_file):
                 {
                     "epoch": epoch_i + 1,
                     "lr": epoch_lr,
-                    "elapsed_time": elapsed_time,
+                    "elapsed_time": elapsed_time / 60,
                     "train/symbol_acc": train_symbol_acc,
                     "train/sent_acc": train_sent_acc,
                     "train/wer": train_wer,
