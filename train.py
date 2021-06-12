@@ -334,20 +334,14 @@ def run_epoch(
                 loss = criterion(output_values, text_gt[:, 1:])
 
             if train:
-                optim_params = [p for param_group in optimizer.param_groups for p in param_group["params"]]
                 optimizer.zero_grad()
-
-                # loss.backward()
-                # # Clip gradients, it returns the total norm of all parameters
-                # grad_norm = nn.utils.clip_grad_norm_(optim_params, max_norm=max_grad_norm)
-                # grad_norms.append(grad_norm)
-                # optimizer.step()
 
                 # apply mixed precision
                 scaler.scale(loss).backward()
+                scaler.unscale_(optimizer)
+                optim_params = [p for param_group in optimizer.param_groups for p in param_group["params"]]
 
                 # clip gradients
-                scaler.unscale_(optimizer)
                 grad_norm = nn.utils.clip_grad_norm_(optim_params, max_norm=max_grad_norm)
                 grad_norms.append(grad_norm)
 
@@ -410,7 +404,7 @@ def run_epoch(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-c", "--config_file", dest="config_file", default="configs/SATRN_small.yaml", type=str, help="Path of configuration file",
+        "-c", "--config_file", dest="config_file", default="configs/Default_SATRN.yaml", type=str, help="Path of configuration file",
     )
     parser = parser.parse_args()
     main(parser.config_file)
