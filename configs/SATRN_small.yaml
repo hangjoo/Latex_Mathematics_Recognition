@@ -53,8 +53,8 @@ train_config:
   fp_16: False
 seed: 42
 wandb:
-  project: "unnamed"
+  project: "hangjoo"
   entity: "unnamed"
-  name: "SATRN_small_fp16"
-prefix: "./log/SATRN_small"
+  name: "SATRN_small_fp16_test"
+prefix: "./log/SATRN_small_test"
 checkpoint: ""
