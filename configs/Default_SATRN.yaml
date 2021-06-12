@@ -55,12 +55,13 @@ data:
   rgb: True  # True for RGB, False for grayscale
 
 train_config:
-  batch_size: 64
+  batch_size: 48
   num_workers: 8
   num_epochs: 50
   print_interval: 1
   teacher_forcing_ratio: 0.5
   max_grad_norm: 2.0
+  fp_16: True
 seed: 42
 wandb:
   project: "hangjoo"
