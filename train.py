@@ -17,7 +17,7 @@ from core.Tokenizer import Tokenizer
 from core.flags import Flags
 from core.checkpoint import default_checkpoint, load_checkpoint, save_checkpoint
 from core.utils import set_random_seed
-from core.metrics import word_error_rate, sentence_acc
+from core.metrics import word_error_rate, sentence_acc, get_symbol_acc
 
 import wandb
 
@@ -115,7 +115,6 @@ def main(config_file):
     optimizer = get_optimizer(config, params_to_optimise)
     if ckpt["optim_state"]:
         optimizer.load_state_dict(ckpt["optim_state"])
-
     print("[+] Optimizer")
     optim_config = config.optimizer._asdict()
     optim_type = optim_config.pop("type")
@@ -134,6 +133,10 @@ def main(config_file):
         for k, v in scheduler_config.items():
             print(f" {k}: {v}")
         print()
+
+    # use mixed precision
+    use_mixed_precision = config.train_config.fp_16
+    scaler = torch.cuda.amp.GradScaler(enabled=use_mixed_precision)
 
     # log
     os.makedirs(config.prefix, exist_ok=True)
@@ -164,8 +167,9 @@ def main(config_file):
             epoch_text,
             config.train_config.teacher_forcing_ratio,
             config.train_config.max_grad_norm,
+            use_mixed_precision,
+            scaler,
             device,
-            config.model.type,
             train=True,
         )
 
@@ -180,8 +184,9 @@ def main(config_file):
             epoch_text,
             config.train_config.teacher_forcing_ratio,
             config.train_config.max_grad_norm,
+            use_mixed_precision,
+            scaler,
             device,
-            config.model.type,
             train=False,
         )
 
@@ -192,13 +197,13 @@ def main(config_file):
         grad_norm = train_result["grad_norm"]
 
         train_loss = train_result["loss"]
-        train_symbol_acc = train_result["correct_symbols"] / train_result["total_symbols"]
+        train_symbol_acc = train_result["symbol_acc"] / train_result["num_symbol_acc"]
         train_sent_acc = train_result["sent_acc"] / train_result["num_sent_acc"]
         train_wer = train_result["wer"] / train_result["num_wer"]
         train_score = 0.9 * train_sent_acc + 0.1 * (1 - train_wer)
 
         valid_loss = valid_result["loss"]
-        valid_symbol_acc = valid_result["correct_symbols"] / valid_result["total_symbols"]
+        valid_symbol_acc = valid_result["symbol_acc"] / valid_result["num_symbol_acc"]
         valid_sent_acc = valid_result["sent_acc"] / valid_result["num_sent_acc"]
         valid_wer = valid_result["wer"] / valid_result["num_wer"]
         valid_score = 0.9 * valid_sent_acc + 0.1 * (1 - valid_wer)
@@ -280,7 +285,19 @@ def main(config_file):
 
 
 def run_epoch(
-    tokenizer, data_loader, model, criterion, optimizer, scheduler, epoch_text, teacher_forcing_ratio, max_grad_norm, device, model_type, train=True,
+    tokenizer,
+    data_loader,
+    model,
+    criterion,
+    optimizer,
+    scheduler,
+    epoch_text,
+    teacher_forcing_ratio,
+    max_grad_norm,
+    use_mixed_precision,
+    scaler,
+    device,
+    train=True,
 ):
     # Disables autograd during validation mode
     torch.set_grad_enabled(train)
@@ -291,10 +308,10 @@ def run_epoch(
 
     losses = []
     grad_norms = []
-    correct_symbols = 0
-    total_symbols = 0
     wer = 0
     num_wer = 0
+    symbol_acc = 0
+    num_symbol_acc = 0
     sent_acc = 0
     num_sent_acc = 0
 
@@ -311,31 +328,39 @@ def run_epoch(
             # Replace -1 with the PAD token
             text_gt[text_gt == -1] = tokenizer.token_to_id[tokenizer.PAD_TOKEN]
 
-            output = model(images, text_gt, train, teacher_forcing_ratio)  # [batch_size, token_num, seq_len - 1]
-            
-            if model_type=='CSTR':
-                target_length = text_gt.size()[-1]-1
-                output = output[:, :target_length, :]
-            
-            output_values = output.transpose(1, 2)  # [batch_size, seq_len - 1, token_num]
-            _, output_id = torch.topk(output_values, 1, dim=1)
-            output_id = output_id.squeeze(1)
-
-            loss = criterion(output_values, text_gt[:, 1:])
+            with torch.cuda.amp.autocast(enabled=use_mixed_precision):
+                output = model(images, text_gt, train, teacher_forcing_ratio)  # [batch_size, token_num, seq_len - 1]
+                output_values = output.transpose(1, 2)  # [batch_size, seq_len - 1, token_num]
+                loss = criterion(output_values, text_gt[:, 1:])
 
             if train:
                 optim_params = [p for param_group in optimizer.param_groups for p in param_group["params"]]
                 optimizer.zero_grad()
-                loss.backward()
-                # Clip gradients, it returns the total norm of all parameters
+
+                # loss.backward()
+                # # Clip gradients, it returns the total norm of all parameters
+                # grad_norm = nn.utils.clip_grad_norm_(optim_params, max_norm=max_grad_norm)
+                # grad_norms.append(grad_norm)
+                # optimizer.step()
+
+                # apply mixed precision
+                scaler.scale(loss).backward()
+
+                # clip gradients
+                scaler.unscale_(optimizer)
                 grad_norm = nn.utils.clip_grad_norm_(optim_params, max_norm=max_grad_norm)
                 grad_norms.append(grad_norm)
 
-                optimizer.step()
+                scaler.step(optimizer)
+                scaler.update()
+
                 if scheduler and scheduler["type"] == "iter":
                     scheduler["scheduler"].step()
 
             losses.append(loss.item())
+
+            _, output_id = torch.topk(output_values, 1, dim=1)
+            output_id = output_id.squeeze(1)
 
             gt_str = [tokenizer.decode(gt_, do_eval=True) for gt_ in text_gt]
             output_str = [tokenizer.decode(sequence_, do_eval=True) for sequence_ in output_id]
@@ -346,8 +371,11 @@ def run_epoch(
             sent_acc += sentence_acc(output_str, gt_str)
             num_sent_acc += 1
 
-            correct_symbols += torch.sum(output_id == text_gt[:, 1:], dim=(0, 1)).item()
-            total_symbols += torch.sum(text_gt[:, 1:] != -1, dim=(0, 1)).item()
+            # TODO: Implement get_symbol_acc
+            # symbol_acc += get_symbol_acc(output_str, gt_str)
+            # num_symbol_acc += 1
+            symbol_acc += torch.sum(output_id == text_gt[:, 1:], dim=(0, 1)).item()
+            num_symbol_acc += torch.sum(text_gt[:, 1:] != -1, dim=(0, 1)).item()
 
             pbar.update(curr_batch_size)
 
@@ -363,10 +391,10 @@ def run_epoch(
 
     result = {
         "loss": np.mean(losses),
-        "correct_symbols": correct_symbols,
-        "total_symbols": total_symbols,
         "wer": wer,
         "num_wer": num_wer,
+        "symbol_acc": symbol_acc,
+        "num_symbol_acc": num_symbol_acc,
         "sent_acc": sent_acc,
         "num_sent_acc": num_sent_acc,
     }
