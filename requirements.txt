@@ -1,3 +1,8 @@
+-f https://download.pytorch.org/whl/torch_stable.html
+torch==1.6.0+cu101
+-f https://download.pytorch.org/whl/torch_stable.html
+torchvision==0.7.0+cu101
+
 tqdm==4.28.1
 Pillow==8.1.1
 scipy==1.6.3
@@ -9,7 +14,3 @@ scikit_image==0.18.1
 imgaug==0.4.0
 albumentations==0.5.2
 wandb==0.10.31
-
-torch==1.6.0
-torchvision==0.7.0
-cudatoolkit==10.1
