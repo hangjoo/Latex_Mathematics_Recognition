@@ -308,7 +308,7 @@ class TransformerDecoderLayer(nn.Module):
             att = self.self_attention_layer(tgt, tgt, tgt, tgt_mask)
             out = self.self_attention_norm(att + tgt)
 
-            att = self.attention_layer(tgt, src, src)
+            att = self.attention_layer(out, src, src)
             out = self.attention_norm(att + out)
 
             ff = self.feedforward_layer(out)
@@ -318,12 +318,11 @@ class TransformerDecoderLayer(nn.Module):
             att = self.self_attention_layer(tgt, tgt_prev, tgt_prev, tgt_mask)
             out = self.self_attention_norm(att + tgt)
 
-            att = self.attention_layer(tgt, src, src)
+            att = self.attention_layer(out, src, src)
             out = self.attention_norm(att + out)
 
             ff = self.feedforward_layer(out)
             out = self.feedforward_norm(ff + out)
-
         return out
 
 
@@ -389,7 +388,6 @@ class TransformerDecoder(nn.Module):
     def order_mask(self, length):
         order_mask = torch.triu(torch.ones(length, length), diagonal=1).bool()
         order_mask = order_mask.unsqueeze(0).to(device)
-
         return order_mask
 
     def text_embedding(self, texts):
