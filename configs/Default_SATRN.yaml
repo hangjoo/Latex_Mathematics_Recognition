@@ -51,7 +51,6 @@ data:
     - 1.0
   random_split: True  # if set True, divided to train and validation dataset from train path. valid args would be ignored.
   test_proportions: 0.2  # factor how many to take from train data for validation.
-  crop: True
   rgb: True  # True for RGB, False for grayscale
 
 train_config:
