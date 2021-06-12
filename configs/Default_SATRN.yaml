@@ -33,7 +33,7 @@ data:
     path:
       - "/opt/ml/input/data/train_dataset/gt.txt"
     transforms:
-      - "Resize(height=128, width=128)"
+      - "Resize(height=32, width=100)"
       - "Normalize(always_apply=True)"
   valid:
     path:
@@ -55,7 +55,7 @@ data:
   rgb: True  # True for RGB, False for grayscale
 
 train_config:
-  batch_size: 48
+  batch_size: 64
   num_workers: 8
   num_epochs: 50
   print_interval: 1
@@ -64,8 +64,8 @@ train_config:
   fp_16: True
 seed: 42
 wandb:
-  project: "hangjoo"
+  project: "unnamed"
   entity: "unnamed"
-  name: "SATRN_baseline"
+  name: "SATRN_baseline_fp16"
 prefix: "./log/SATRN"
 checkpoint: ""

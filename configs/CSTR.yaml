@@ -45,6 +45,7 @@ train_config:
   print_interval: 1
   teacher_forcing_ratio: 0.5  # CSTR not use teacher forcing
   max_grad_norm: 2.0
+  fp_16: false
 seed: 42
 wandb:
   project: "unnamed"
