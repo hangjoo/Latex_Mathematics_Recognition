@@ -89,17 +89,17 @@ class FusionBlock(nn.Module):
 
     def __init__(
         self,
-        method: str,
-        from_layers: str,
-        feat_strides: list,
-        in_channels_list: list,
-        out_channels_list: list,
-        upsample: (dict, list),
-        conv_cfg: dict = dict(type='Conv'),
-        norm_cfg: dict = dict(type='BN'),
-        activation: str = 'relu',
-        inplace: bool = True,
-        common_stride: int = 4,
+        method,
+        from_layers,
+        feat_strides,
+        in_channels_list,
+        out_channels_list,
+        upsample,
+        conv_cfg,
+        norm_cfg,
+        activation,
+        inplace,
+        common_stride,
     ):
         super(FusionBlock, self).__init__()
 
