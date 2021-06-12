@@ -18,7 +18,7 @@ from .build.scheduler import get_cosine_schedule_with_warmup
 from .build.scheduler import get_cosine_with_hard_restarts_schedule_with_warmup
 
 model_list = {
-    "Attention": Baseline_Attention,
+    "Baseline_Attention": Baseline_Attention,
     "Baseline_SATRN": Baseline_SATRN,
     "SATRN": SATRN,
     "CSTR": CSTR,
@@ -59,7 +59,7 @@ def get_model(config, tokenizer, *args, **kwagrs):
 
 def get_loss(config, *args, **kwagrs):
     loss_name = config.loss.type
-    
+
     if loss_name in loss_list:
         loss_fn = loss_list[loss_name](*args, **kwagrs)
     else:
