@@ -248,8 +248,8 @@ class TransformerDecoder(nn.Module):
 
     def order_mask(self, text):
         seq_len = text.size(1)
-        order_mask = torch.triu(torch.ones(seq_len, seq_len), diagonal=1).bool()
-        order_mask = order_mask.unsqueeze(0).to(text.device)
+        order_mask = torch.triu(torch.ones(seq_len, seq_len, device=text.device), diagonal=1).bool()
+        order_mask = order_mask.unsqueeze(0)
 
         return order_mask
 
@@ -272,10 +272,11 @@ class TransformerDecoder(nn.Module):
                 tgt = block(tgt, feats, tgt_mask, None)
             out = self.generator(tgt)
         else:
-            texts = torch.LongTensor(feats.size(0), 1).fill_(self.st_id).to(feats.device)
+            texts = torch.full(size=(feats.size(0), 1), dtype=torch.long, fill_value=self.st_id, device=feats.device)
 
             for _ in range(max_length):
                 tgt = self.text_embedding(texts)
+                tgt = self.pos_encoder(tgt)
                 tgt_mask = self.order_mask(texts)
 
                 for block in self.blocks:
@@ -311,6 +312,6 @@ class SATRN(nn.Module):
 
     def forward(self, images, texts=None, is_train=True, teacher_forcing_ratio=1.0):
         enc_result = self.encoder(images)
-        dec_result = self.decoder(enc_result, texts[:, :-1], is_train, texts[:, :-1].size(1), teacher_forcing_ratio)
+        dec_result = self.decoder(enc_result, texts[:, :-1], is_train, texts[:, :-1].size(1), teacher_forcing_ratio,)
 
         return dec_result
