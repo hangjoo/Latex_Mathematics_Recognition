@@ -9,24 +9,20 @@ loss:
   type: "CrossEntropyLoss"
 optimizer:
   type: "Adam"
-  lr: 3e-4
+  lr: 5e-4
   weight_decay: 1e-4
 scheduler:
-  type: "CircularLRBeta"
-  lr_max: 5e-4
-  lr_divider: 10
-  cut_point: 10
-  step_size: 834  # step size
-  momentum:
-    - 0.95
-    - 0.85
+  type: "get_cosine_with_hard_restarts_schedule_with_warmup"
+  num_warmup_steps: 625 * 5
+  num_training_steps: 625 * 50
+  num_cycles: 3
 
 data:
   train:
     path:
       - "/opt/ml/input/data/train_dataset/gt.txt"
     transforms:
-      - "Resize(height=64, width=200)"
+      - "Resize(height=32, width=100)"
       - "Normalize(always_apply=True)"
   valid:
     path:
@@ -48,16 +44,17 @@ data:
   rgb: True  # True for RGB, False for grayscale
 
 train_config:
-  batch_size: 32
+  batch_size: 128
   num_workers: 8
-  num_epochs: 50
+  num_epochs: 100
   print_interval: 1
-  teacher_forcing_ratio: 0.7
+  teacher_forcing_ratio: 0.5
   max_grad_norm: 2.0
+  fp_16: False
 seed: 42
 wandb:
-  project: "hangjoo"
+  project: "unnamed"
   entity: "unnamed"
-  name: "SATRN_small"
+  name: "SATRN_small_fp16"
 prefix: "./log/SATRN_small"
 checkpoint: ""
