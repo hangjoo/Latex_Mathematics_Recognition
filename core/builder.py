@@ -13,6 +13,7 @@ from torch.optim import SGD, Adam, Adadelta, AdamW
 
 # schedulers
 from torch.optim.lr_scheduler import StepLR
+from torch.optim.lr_scheduler import CosineAnnealingLR
 from .build.scheduler import CircularLRBeta
 from .build.scheduler import get_cosine_schedule_with_warmup
 from .build.scheduler import get_cosine_with_hard_restarts_schedule_with_warmup
@@ -43,6 +44,7 @@ iter_scheduler_list = {
 }
 epoch_scheduler_list = {
     "StepLR": StepLR,
+    "CosineAnnealingLR": CosineAnnealingLR
 }
 
 
