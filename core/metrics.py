@@ -28,9 +28,9 @@ def get_symbol_acc(predicted_outputs, ground_truths):
     total_symbols = 0
     for output, ground_truth in zip(predicted_outputs, ground_truths):
         if len(output) < len(ground_truth):
-            correct_symbols += sum(output == ground_truth[: len(output)])
+            correct_symbols += sum([True if pr_ == gt_ else False for pr_, gt_ in zip(output, ground_truth[: len(output)])])
         else:
-            correct_symbols += sum(output[: len(ground_truth)] == ground_truth)
+            correct_symbols += sum([True if pr_ == gt_ else False for pr_, gt_ in zip(output[: len(ground_truth)], ground_truth)])
         total_symbols += max(len(output), len(ground_truth))
 
     return correct_symbols / total_symbols

@@ -365,11 +365,8 @@ def run_epoch(
             sent_acc += sentence_acc(output_str, gt_str)
             num_sent_acc += 1
 
-            # TODO: Implement get_symbol_acc
-            # symbol_acc += get_symbol_acc(output_str, gt_str)
-            # num_symbol_acc += 1
-            symbol_acc += torch.sum(output_id == text_gt[:, 1:], dim=(0, 1)).item()
-            num_symbol_acc += torch.sum(text_gt[:, 1:] != -1, dim=(0, 1)).item()
+            symbol_acc += get_symbol_acc(output_str, gt_str)
+            num_symbol_acc += 1
 
             pbar.update(curr_batch_size)
 
@@ -404,7 +401,7 @@ def run_epoch(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-c", "--config_file", dest="config_file", default="configs/Default_SATRN.yaml", type=str, help="Path of configuration file",
+        "-c", "--config_file", dest="config_file", default="configs/SATRN_small.yaml", type=str, help="Path of configuration file",
     )
     parser = parser.parse_args()
     main(parser.config_file)
