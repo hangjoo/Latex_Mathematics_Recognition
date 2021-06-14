@@ -54,7 +54,7 @@ def collate_eval_batch(data):
 
 
 class Default(Dataset):
-    def __init__(self, data, tokenizer, crop=False, transform=None, rgb=3):
+    def __init__(self, data, tokenizer, transform=None, rgb=3):
         """
         Args
             data: A list that includes an image name and raw latex text. E.g) [["/{img_path}/train_00001.jpg", "4 \\times 7 = 2 8"], ...]
@@ -64,7 +64,6 @@ class Default(Dataset):
         """
         super(Default, self).__init__()
         self.transform = get_transforms(transform)
-        self.crop = crop
         self.rgb = rgb
         self.tokenizer = tokenizer
         self.data = [
@@ -115,10 +114,9 @@ class Default(Dataset):
 
 
 class EvalDataset(Dataset):
-    def __init__(self, data, tokenizer, crop=False, transform=None, rgb=3):
+    def __init__(self, data, tokenizer, transform=None, rgb=3):
         super(EvalDataset, self).__init__()
         self.transform = get_transforms(transform)
-        self.crop = crop
         self.rgb = rgb
         self.tokenizer = tokenizer
         self.data = [
@@ -195,7 +193,7 @@ def dataset_loader(config, tokenizer):
     valid_transform = config.data.valid.transforms if not config.data.random_split else train_transform
 
     # Load data
-    train_dataset = Default(train_data, tokenizer, crop=config.data.crop, transform=train_transform, rgb=config.data.rgb)
+    train_dataset = Default(train_data, tokenizer, transform=train_transform, rgb=config.data.rgb)
     train_loader = DataLoader(
         train_dataset,
         batch_size=config.train_config.batch_size,
@@ -204,7 +202,7 @@ def dataset_loader(config, tokenizer):
         collate_fn=train_dataset.collate_fn,
     )
 
-    valid_dataset = Default(valid_data, tokenizer, crop=config.data.crop, transform=valid_transform, rgb=config.data.rgb)
+    valid_dataset = Default(valid_data, tokenizer, transform=valid_transform, rgb=config.data.rgb)
     valid_loader = DataLoader(
         valid_dataset,
         batch_size=config.train_config.batch_size,
