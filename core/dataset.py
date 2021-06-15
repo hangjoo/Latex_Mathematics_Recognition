@@ -1,8 +1,6 @@
 import os
 import random
-from albumentations.augmentations.functional import get_random_crop_coords
 import torch
-from PIL import Image, ImageOps
 from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 
@@ -12,12 +10,18 @@ from albumentations.pytorch.transforms import ToTensorV2
 from .utils import get_transforms
 
 
-def split_gt(groundtruth, proportion=1.0, test_percent=None):
+def split_gt(groundtruth, proportion=1.0, test_percent=None, max_seq_len=None):
     root = os.path.join(os.path.dirname(groundtruth), "images")
     with open(groundtruth, "r") as fd:
         data = []
         for line in fd:
-            data.append(line.strip().split("\t"))
+            img_path, gt = line.split("\t")
+            img_path = img_path.strip()
+            gt = gt.strip()
+            if max_seq_len is None:
+                data.append([img_path, gt])
+            elif len(gt.split(" ")) < max_seq_len:
+                data.append([img_path, gt])
         random.shuffle(data)
         dataset_len = round(len(data) * proportion)
         data = data[:dataset_len]
@@ -30,30 +34,7 @@ def split_gt(groundtruth, proportion=1.0, test_percent=None):
         return data
 
 
-def collate_batch(data):
-    max_len = max([len(d["truth"]["encoded"]) for d in data])
-    # Padding with -1, will later be replaced with the PAD token
-    padded_encoded = [d["truth"]["encoded"] + (max_len - len(d["truth"]["encoded"])) * [-1] for d in data]
-    return {
-        "path": [d["path"] for d in data],
-        "image": torch.stack([d["image"] for d in data], dim=0),
-        "truth": {"text": [d["truth"]["text"] for d in data], "encoded": torch.tensor(padded_encoded)},
-    }
-
-
-def collate_eval_batch(data):
-    max_len = max([len(d["truth"]["encoded"]) for d in data])
-    # Padding with -1, will later be replaced with the PAD token
-    padded_encoded = [d["truth"]["encoded"] + (max_len - len(d["truth"]["encoded"])) * [-1] for d in data]
-    return {
-        "path": [d["path"] for d in data],
-        "file_path": [d["file_path"] for d in data],
-        "image": torch.stack([d["image"] for d in data], dim=0),
-        "truth": {"text": [d["truth"]["text"] for d in data], "encoded": torch.tensor(padded_encoded)},
-    }
-
-
-class Default(Dataset):
+class TrainDataset(Dataset):
     def __init__(self, data, tokenizer, transform=None, rgb=3):
         """
         Args
@@ -62,7 +43,7 @@ class Default(Dataset):
             transform: Pytorch transforms to apply on images.
             rgb: If set 3, image would be loaded as 3 channels(RGB), else if grayscale.
         """
-        super(Default, self).__init__()
+        super(TrainDataset, self).__init__()
         self.transform = get_transforms(transform)
         self.rgb = rgb
         self.tokenizer = tokenizer
@@ -92,9 +73,17 @@ class Default(Dataset):
         else:  # Grayscale
             image = cv2.imread(item["path"], cv2.IMREAD_GRAYSCALE)
 
+        # rotate 90 degrees clockwise if aspect ratio is smaller than 0.65.
+        aspect_ratio = image.shape[0] / image.shape[1]
+        if aspect_ratio < 0.65:
+            image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+
         # apply transforms.
         if self.transform:
             image = self.transform(image=image)["image"]
+
+        if not self.rgb:
+            image /= 255.
 
         # to tensor(channels, height, width).
         image = ToTensorV2()(image=image)["image"]
@@ -146,9 +135,17 @@ class EvalDataset(Dataset):
         else:  # Grayscale
             image = cv2.imread(item["path"], cv2.IMREAD_GRAYSCALE)
 
+        # rotate 90 degrees clockwise if aspect ratio is smaller than 0.65.
+        aspect_ratio = image.shape[0] / image.shape[1]
+        if aspect_ratio < 0.65:
+            image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+
         # apply transforms.
         if self.transform:
             image = self.transform(image=image)["image"]
+
+        if not self.rgb:
+            image = image / 255.
 
         # to tensor(channels, height, width).
         image = ToTensorV2()(image=image)["image"]
@@ -176,7 +173,7 @@ def dataset_loader(config, tokenizer):
             prop = 1.0
             if len(config.data.dataset_proportions) > i:
                 prop = config.data.dataset_proportions[i]
-            train, valid = split_gt(path, prop, config.data.test_proportions)
+            train, valid = split_gt(path, prop, test_percent=config.data.test_proportions, max_seq_len=config.train_config.max_seq_len)
             train_data += train
             valid_data += valid
     else:
@@ -186,14 +183,14 @@ def dataset_loader(config, tokenizer):
                 prop = config.data.dataset_proportions[i]
             train_data += split_gt(path, prop)
         for i, path in enumerate(config.data.valid.path):
-            valid = split_gt(path)
+            valid = split_gt(path, max_seq_len=config.train_config.max_seq_len)
             valid_data += valid
 
     train_transform = config.data.train.transforms
     valid_transform = config.data.valid.transforms if not config.data.random_split else train_transform
 
     # Load data
-    train_dataset = Default(train_data, tokenizer, transform=train_transform, rgb=config.data.rgb)
+    train_dataset = TrainDataset(train_data, tokenizer, transform=train_transform, rgb=config.data.rgb)
     train_loader = DataLoader(
         train_dataset,
         batch_size=config.train_config.batch_size,
@@ -202,7 +199,7 @@ def dataset_loader(config, tokenizer):
         collate_fn=train_dataset.collate_fn,
     )
 
-    valid_dataset = Default(valid_data, tokenizer, transform=valid_transform, rgb=config.data.rgb)
+    valid_dataset = TrainDataset(valid_data, tokenizer, transform=valid_transform, rgb=config.data.rgb)
     valid_loader = DataLoader(
         valid_dataset,
         batch_size=config.train_config.batch_size,
