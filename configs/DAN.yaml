@@ -1,19 +1,26 @@
 model:
-  type: "SATRN"
-  hidden_dim: 256
-  n_e: 6
-  n_d: 3
-  num_head: 4
-  dropout_rate: 0.1
+  type: "DAN"
+  FE:
+    strides: [[2, 2], [2, 2], [2, 1], [2, 2], [2, 2], [2, 1]]
+    compress_layer: True
+    input_shape: [1, 192, 2048]
+  CAM:
+    maxT: 150
+    depth: 14
+    num_channels: 128
+  DTD:
+    channel_num: 256
+    dropout: 0.1
 loss:
   type: "CrossEntropyLoss"
 optimizer:
   type: "Adam"
-  lr: 5e-4
+  lr: 0.1
+  momentum: 0.9
 scheduler:
   type: "get_cosine_with_hard_restarts_schedule_with_warmup"
-  num_warmup_steps: 1668 * 5
-  num_training_steps: 1668 * 50
+  num_warmup_steps: 1251 * 5
+  num_training_steps: 1251 * 50
   num_cycles: 3
 
 data:
@@ -45,18 +52,17 @@ data:
   rgb: True  # True for RGB, False for grayscale
 
 train_config:
-  batch_size: 16
+  batch_size: 192
   num_workers: 8
   num_epochs: 100
   print_interval: 1
-  max_seq_len: 75  # if set an integer, data that has a sentence length over max_seq_len would be ignored.
-  teacher_forcing_ratio: 0.0
+  teacher_forcing_ratio: 0.5
   max_grad_norm: 2.0
-  fp_16: False
+  fp_16: True
 seed: 42
 wandb:
   project: "hangjoo"
   entity: "unnamed"
-  name: "SATRN_small_test"
-prefix: "./log/SATRN_small_test"
+  name: "DAN"
+prefix: "./log/DAN"
 checkpoint: ""

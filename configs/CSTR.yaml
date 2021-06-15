@@ -42,6 +42,7 @@ train_config:
   num_workers: 8
   num_epochs: 100
   print_interval: 1
+  max_seq_len: 75  # if set an integer, data that has a sentence length over max_seq_len would be ignored.
   teacher_forcing_ratio: 0.5  # CSTR not use teacher forcing
   max_grad_norm: 2.0
   fp_16: false
