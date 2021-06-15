@@ -14,14 +14,13 @@
 ## Quick Start
 
 1. 패키지 설치
-```
+```bash
 pip install -r requirements.txt
 ```
 2. 패키지 설치 후 configs 디렉토리에서 알맞은 모델 config을 선택한 뒤, 실험 환경에 맞게 인자를 설정(아래 Config.yaml 참고)
-3. config 내에 설정한 데이터 경로에 맞게 데이터를 이동.
-4. train.py 실행
+3. train.py 실행
 ```bash
-python ./train.py -c ./config/SATRN.yaml
+python ./train.py -c ./config/YOUR_CONFIG.yaml
 ```
 
 ## Config.yaml
