@@ -1,11 +1,15 @@
 # Latex Mathematics Expression Recognition
 
+## Members.
+
+[김익재](https://github.com/ijjustinKim) | [남지인](https://github.com/zeen263) | [이주남](https://github.com/joon1230) | [이진성](https://github.com/ssun-g) | [장형주](https://github.com/hangjoo) | [최길희](https://github.com/grazerhee)
+
 ## Main Features.
 
 - 실험 커스터마이징을 위해 코드를 수정할 필요 없이 최대한 config yaml 내에서 수정하는 것으로 가능하도록 구현.
 - wandb 연동으로 실험 관리
 - 이미지를 transform 시 성능 향상을 위해 albumentation transform 사용.
-- 다양한 환경 설정을 위해 코드를 모듈화해서 분리해서 사용. Main Code는 train.py를 통해 모델을 학습하고 core 디렉토리에서 조립해서 사용하는 식으로 코드 구현.
+- 다양한 환경 설정을 위해 코드를 모듈화해서 분리해서 사용. Main Code는 train.py를 통해 모델을 학습하고 core 디렉토리에서 조립하여 학습 환경에 적용할 수 있도록 코드 구현.
 
 ## Quick Start
 
