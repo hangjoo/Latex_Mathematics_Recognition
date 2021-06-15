@@ -272,6 +272,7 @@ class TransformerDecoder(nn.Module):
                 tgt = block(tgt, feats, tgt_mask, None)
             out = self.generator(tgt)
         else:
+            out = torch.tensor([], device=feats.device)
             texts = torch.full(size=(feats.size(0), 1), dtype=torch.long, fill_value=self.st_id, device=feats.device)
 
             for _ in range(max_length):
@@ -280,10 +281,11 @@ class TransformerDecoder(nn.Module):
                 tgt_mask = self.order_mask(texts)
 
                 for block in self.blocks:
-                    out = block(tgt, feats, tgt_mask, None)
-                out = self.generator(out)
-                next_text = torch.argmax(out[:, -1:, :], dim=-1)
+                    out_ = block(tgt, feats, tgt_mask, None)
+                out_ = self.generator(out_)
+                out = torch.cat((out, out_[:, -1:, :]), dim=1)
 
+                next_text = torch.argmax(out_[:, -1:, :], dim=-1)
                 texts = torch.cat([texts, next_text], dim=-1)
 
         return out
