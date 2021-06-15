@@ -21,6 +21,11 @@ from core.metrics import word_error_rate, sentence_acc, get_symbol_acc
 
 import wandb
 
+# device settings.
+is_cuda = torch.cuda.is_available()
+hardware = "cuda" if is_cuda else "cpu"
+device = torch.device(hardware)
+
 
 def main(config_file):
     """
@@ -47,9 +52,6 @@ def main(config_file):
     # set random seed
     set_random_seed(config.seed)
 
-    is_cuda = torch.cuda.is_available()
-    hardware = "cuda" if is_cuda else "cpu"
-    device = torch.device(hardware)
     print("--------------------------------")
     print("Running {} on device {}\n".format(config.model.type, device))
 
@@ -169,7 +171,6 @@ def main(config_file):
             config.train_config.max_grad_norm,
             use_mixed_precision,
             scaler,
-            device,
             train=True,
         )
 
@@ -186,7 +187,6 @@ def main(config_file):
             config.train_config.max_grad_norm,
             use_mixed_precision,
             scaler,
-            device,
             train=False,
         )
 
@@ -296,7 +296,6 @@ def run_epoch(
     max_grad_norm,
     use_mixed_precision,
     scaler,
-    device,
     train=True,
 ):
     # Disables autograd during validation mode
