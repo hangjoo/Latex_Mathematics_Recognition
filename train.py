@@ -26,6 +26,9 @@ is_cuda = torch.cuda.is_available()
 hardware = "cuda" if is_cuda else "cpu"
 device = torch.device(hardware)
 
+# wandb flag
+use_wandb = False
+
 
 def main(config_file):
     """
@@ -34,20 +37,22 @@ def main(config_file):
     config = Flags(config_file).get()
 
     # init wandb logger
-    wandb_params = config.wandb._asdict()
-    wandb_config = {
-        "model": config.model.type,
-        "loss": config.loss.type,
-        "optimizer": config.optimizer.type,
-        "transforms": config.data.train.transforms,
-        "rgb": config.data.rgb,
-        "batch_size": config.train_config.batch_size,
-        "num_epochs": config.train_config.num_epochs,
-        "teacher_forcing": config.train_config.teacher_forcing_ratio,
-        "max_grad_norm": config.train_config.max_grad_norm,
-        "random_seed": config.seed,
-    }
-    wandb.init(config=wandb_config, **wandb_params)
+    if hasattr(config, "wandb"):
+        use_wandb = True
+        wandb_params = config.wandb._asdict()
+        wandb_config = {
+            "model": config.model.type,
+            "loss": config.loss.type,
+            "optimizer": config.optimizer.type,
+            "transforms": config.data.train.transforms,
+            "rgb": config.data.rgb,
+            "batch_size": config.train_config.batch_size,
+            "num_epochs": config.train_config.num_epochs,
+            "teacher_forcing": config.train_config.teacher_forcing_ratio,
+            "max_grad_norm": config.train_config.max_grad_norm,
+            "random_seed": config.seed,
+        }
+        wandb.init(config=wandb_config, **wandb_params)
 
     # set random seed
     set_random_seed(config.seed)
@@ -146,8 +151,9 @@ def main(config_file):
         os.makedirs(config.prefix)
     log_file = open(os.path.join(config.prefix, "log.txt"), "w")
     shutil.copy(config_file, os.path.join(config.prefix, "train_config.yaml"))
-    wandb.save(glob_str=os.path.join(config.prefix, "train_config.yaml"))
-    wandb.watch(models=model, criterion=criterion, log="all")
+    if use_wandb:
+        wandb.save(glob_str=os.path.join(config.prefix, "train_config.yaml"))
+        wandb.watch(models=model, criterion=criterion, log="all")
 
     # train model
     best_score = 0.0
@@ -237,7 +243,8 @@ def main(config_file):
         if valid_score > best_score:
             best_score = valid_score
             save_checkpoint(ckpt, dir=".", prefix=config.prefix, base_name="best_score")
-            wandb.save(glob_str=os.path.join(config.prefix, "best_score.pth"))
+            if use_wandb:
+                wandb.save(glob_str=os.path.join(config.prefix, "best_score.pth"))
             best_flag = True
         else:
             best_flag = False
@@ -265,23 +272,24 @@ def main(config_file):
                 output_string += " -> Best Score Update!"
             print(output_string)
             log_file.write(output_string + "\n")
-            wandb.log(
-                {
-                    "epoch": epoch_i + 1,
-                    "lr": epoch_lr,
-                    "elapsed_time": elapsed_time / 60,
-                    "train/symbol_acc": train_symbol_acc,
-                    "train/sent_acc": train_sent_acc,
-                    "train/wer": train_wer,
-                    "train/loss": train_loss,
-                    "train/score": train_score,
-                    "validation/symbol_acc": valid_symbol_acc,
-                    "validation/sent_acc": valid_sent_acc,
-                    "validation/wer": valid_wer,
-                    "validation/loss": valid_loss,
-                    "validation/score": valid_score,
-                }
-            )
+            if use_wandb:
+                wandb.log(
+                    {
+                        "epoch": epoch_i + 1,
+                        "lr": epoch_lr,
+                        "elapsed_time": elapsed_time / 60,
+                        "train/symbol_acc": train_symbol_acc,
+                        "train/sent_acc": train_sent_acc,
+                        "train/wer": train_wer,
+                        "train/loss": train_loss,
+                        "train/score": train_score,
+                        "validation/symbol_acc": valid_symbol_acc,
+                        "validation/sent_acc": valid_sent_acc,
+                        "validation/wer": valid_wer,
+                        "validation/loss": valid_loss,
+                        "validation/score": valid_score,
+                    }
+                )
 
 
 def run_epoch(
