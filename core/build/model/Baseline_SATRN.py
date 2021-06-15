@@ -34,7 +34,7 @@ class BottleneckBlock(nn.Module):
         out = self.conv1(self.relu(self.norm1(x)))
         out = self.conv2(self.relu(self.norm2(out)))
         out = self.dropout(out)
-        
+
         return torch.cat([x, out], 1)
 
 
@@ -60,7 +60,7 @@ class TransitionBlock(nn.Module):
 
     def forward(self, x):
         out = self.conv(self.relu(self.norm(x)))
-        
+
         return self.pool(out)
 
 
@@ -125,7 +125,7 @@ class DeepCNN300(nn.Module):
         out = self.block2(out)
         out_before_trans2 = self.trans2_relu(self.trans2_norm(out))
         out_A = self.trans2_conv(out_before_trans2)
-        
+
         return out_A  # 128 x (16x16)
 
 
@@ -144,7 +144,7 @@ class ScaledDotProductAttention(nn.Module):
         attn = torch.softmax(attn, dim=-1)
         attn = self.dropout(attn)
         out = torch.matmul(attn, v)
-        
+
         return out, attn
 
 
@@ -214,7 +214,7 @@ class TransformerEncoderLayer(nn.Module):
 
         ff = self.feedforward_layer(out)
         out = self.feedforward_norm(ff + out)
-        
+
         return out
 
 
@@ -291,7 +291,7 @@ class TransformerEncoderFor2DFeatures(nn.Module):
 
         for layer in self.attention_layers:
             out = layer(out)
-        
+
         return out
 
 
@@ -329,7 +329,7 @@ class TransformerDecoderLayer(nn.Module):
 
             ff = self.feedforward_layer(out)
             out = self.feedforward_norm(ff + out)
-        
+
         return out
 
 
@@ -359,7 +359,7 @@ class PositionEncoder1D(nn.Module):
             out = self.dropout(out)
         else:
             out = x + self.position_encoder[:, point, :].unsqueeze(1).to(x.get_device())
-        
+
         return out
 
 
@@ -432,7 +432,7 @@ class TransformerDecoder(nn.Module):
 
                 _out = self.generator(tgt)  # [b, 1, c]
                 target = torch.argmax(_out[:, -1:, :], dim=-1)  # [b, 1]
-                target = target.squeeze()  # [b]
+                target = target.squeeze(-1)  # [b]
                 out.append(_out)
 
             out = torch.stack(out, dim=1).to(device)  # [b, max length, 1, class length]
@@ -470,5 +470,5 @@ class Baseline_SATRN(nn.Module):
     def forward(self, input, expected, is_train, teacher_forcing_ratio):
         enc_result = self.encoder(input)
         dec_result = self.decoder(enc_result, expected[:, :-1], is_train, expected.size(1), teacher_forcing_ratio,)
-        
+
         return dec_result
