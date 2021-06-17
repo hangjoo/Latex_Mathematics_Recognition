@@ -10,6 +10,7 @@
 - wandb 연동으로 실험 관리
 - 이미지를 transform 시 성능 향상을 위해 albumentation transform 사용.
 - 다양한 환경 설정을 위해 코드를 모듈화해서 분리해서 사용. Main Code는 train.py를 통해 모델을 학습하고 core 디렉토리에서 조립하여 학습 환경에 적용할 수 있도록 코드 구현.
+- 학습 시간 단축을 위한 mixed precision 적용.
 
 ## Quick Start
 
