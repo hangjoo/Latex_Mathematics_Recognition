@@ -346,9 +346,9 @@ def run_epoch(
                 # apply mixed precision
                 scaler.scale(loss).backward()
                 scaler.unscale_(optimizer)
-                optim_params = [p for param_group in optimizer.param_groups for p in param_group["params"]]
 
                 # clip gradients
+                optim_params = [p for param_group in optimizer.param_groups for p in param_group["params"]]
                 grad_norm = nn.utils.clip_grad_norm_(optim_params, max_norm=max_grad_norm)
                 grad_norms.append(grad_norm)
 
