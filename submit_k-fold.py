@@ -1,13 +1,10 @@
 import argparse
 import os
 from tqdm import tqdm
-import random
 import csv
 import numpy as np
 
 import torch
-import torch.nn as nn
-from torchvision import transforms
 from torch.utils.data import DataLoader
 
 from core.checkpoint import load_checkpoint
@@ -16,18 +13,16 @@ from core.flags import Flags
 from core.utils import set_random_seed
 from core.builder import get_model
 
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
 
 def main(parser):
     # fix random seed.
     set_random_seed(parser.seed)
-    
+
     is_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if is_cuda else "cpu")
 
     # load checkpoint.
-    ckpt = [load_checkpoint(f'./log/SATRN/best_score(dataset{i}).pth', cuda=is_cuda) for i in range(1,6)]
+    ckpt = [load_checkpoint(f"./log/SATRN/best_score(dataset{i}).pth", cuda=is_cuda) for i in range(1, 6)]
 
     all_prediction = None
     img_name = []
@@ -45,18 +40,16 @@ def main(parser):
         tokenizer = ckpt[i]["tokenizer"]
         transform = config.data.test.transforms
         test_dataset = EvalDataset(test_data, tokenizer, transform=transform, rgb=config.data.rgb)
-        test_data_loader = DataLoader(
-            test_dataset, batch_size=parser.batch_size, shuffle=False, num_workers=1, collate_fn=test_dataset.collate_fn,
-        )
+        test_data_loader = DataLoader(test_dataset, batch_size=parser.batch_size, shuffle=False, num_workers=1, collate_fn=test_dataset.collate_fn,)
         print(
             "[+] Data\n", "The number of test samples : {}\n".format(len(test_dataset)),
         )
-        
+
         # load init model
         model = get_model(config, tokenizer).to(device)
         model.load_state_dict(ckpt[i]["model_state"])
         model.eval()
-        
+
         fold_pred = []
         results = []
         for d in tqdm(test_data_loader):
@@ -68,14 +61,14 @@ def main(parser):
             decoded_values = decoded_values.detach().cpu().numpy()
             fold_pred.append(decoded_values)
 
-            if i==0:
+            if i == 0:
                 img_name.extend(d["img_name"])
 
         if all_prediction is None:
             all_prediction = np.array(fold_pred) / len(ckpt)
         else:
-            all_prediction += (np.array(fold_pred) / len(ckpt))
-            
+            all_prediction += np.array(fold_pred) / len(ckpt)
+
     pred = np.argmax(all_prediction, axis=2)
     sequence_str = [tokenizer.decode(pred[i][j], do_eval=True) for i in range(len(pred)) for j in range(len(pred[i]))]
 
