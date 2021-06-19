@@ -152,7 +152,7 @@ def main(config_file):
     log_file = open(os.path.join(config.prefix, "log.txt"), "w")
     shutil.copy(config_file, os.path.join(config.prefix, "train_config.yaml"))
     if use_wandb:
-        wandb.save(glob_str=os.path.join(config.prefix, "train_config.yaml"))
+        wandb.save(glob_str=os.path.join(config.prefix, "train_config.yaml"), policy="now")
         wandb.watch(models=model, criterion=criterion, log="all")
 
     # train model
@@ -244,7 +244,7 @@ def main(config_file):
             best_score = valid_score
             save_checkpoint(ckpt, dir=".", prefix=config.prefix, base_name="best_score")
             if use_wandb:
-                wandb.save(glob_str=os.path.join(config.prefix, "best_score.pth"))
+                wandb.save(glob_str=os.path.join(config.prefix, "best_score.pth"), policy="now")
             best_flag = True
         else:
             best_flag = False
@@ -290,6 +290,9 @@ def main(config_file):
                         "validation/score": valid_score,
                     }
                 )
+
+    # finish training.
+    log_file.write(output_string + "\n")
 
 
 def run_epoch(
