@@ -131,7 +131,7 @@ checkpoint: ""
         #     - "Resize(height=128, width=128)"
         #     - "Normalize(always_apply=True)"
         # 위의 transfomrs는 아래와 같이 변경되어 적용됨.
-
+        
         transforms = A.Compose([
         	A.Resize(height=128, width=128),
         	A.Normalize(always_apply=True),
@@ -163,3 +163,12 @@ checkpoint: ""
 - wadb : wandb.init 시 사용할 인자
 - prefix : log 파일과 checkpoint 파일을 저장할 디렉토리 경로
 - checkpoint : checkpoint 파일(.pth) 경로가 주어질 경우 해당 checkpoint 파일을 불러와 학습을 해당 checkpoint에서부터 진행
+
+## Out Results
+
+|                Image                |                       Rendered                        |                        Predicted Text                        |
+| :---------------------------------: | :---------------------------------------------------: | :----------------------------------------------------------: |
+| ![train_01072](etc/train_01072.jpg) | ![train_01072_rendered](etc/train_01072_rendered.png) | \frac { x ^ { 2 } } { a ^ { 2 } } - \frac { y ^ { 2 } } { b ^ { 2 } } = - 1 |
+| ![train_00936](etc/train_00936.jpg) | ![train_00936_rendered](etc/train_00936_rendered.png) | \lim _ { h \to 0 } \frac { \ln \left( x + h \right) - \ln x } { h } |
+| ![train_00910](etc/train_00910.jpg) |                        Failed                         | \int _ { 0 } ^ { 1 } \frac { 2 i i } { \left( x + 1 i i z ^ { 2 } + 1 i } } \frac \frac 1 } { 2 } } \log 2 - { { { } } } } } } |
+
