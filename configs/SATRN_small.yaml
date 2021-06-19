@@ -14,8 +14,8 @@ optimizer:
   weight_decay: 1e-4
 scheduler:
   type: "get_cosine_with_hard_restarts_schedule_with_warmup"
-  num_warmup_steps: 2502 * 5
-  num_training_steps: 2502 * 50
+  num_warmup_steps: 834 * 5
+  num_training_steps: 834 * 50
   num_cycles: 3
 
 data:
@@ -35,7 +35,8 @@ data:
     path:
       - ""
     transforms:
-      - null
+      - "Resize(height=64, width=200)"
+      - "Normalize(mean=0.5, std=0.5, always_apply=True)"
   token_paths:
     - "/opt/ml/input/data/train_dataset/tokens.txt"
   dataset_proportions:  # proportion of data to take from train (not test)
@@ -45,7 +46,7 @@ data:
   rgb: True  # True for RGB, False for grayscale
 
 train_config:
-  batch_size: 32
+  batch_size: 96
   num_workers: 8
   num_epochs: 100
   print_interval: 1
