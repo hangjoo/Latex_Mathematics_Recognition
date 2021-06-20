@@ -74,7 +74,7 @@ class TrainDataset(Dataset):
             image = cv2.imread(item["path"], cv2.IMREAD_GRAYSCALE)
 
         # rotate 90 degrees clockwise if aspect ratio is smaller than 0.65.
-        aspect_ratio = image.shape[0] / image.shape[1]
+        aspect_ratio = image.shape[1] / image.shape[0]
         if aspect_ratio < 0.65:
             image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
 
