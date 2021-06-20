@@ -1,3 +1,5 @@
+import timm
+
 import torch
 import torch.nn as nn
 
@@ -145,3 +147,79 @@ class DeepCNN300(nn.Module):
         out_A = self.trans2_conv(self.trans2_relu(self.trans2_norm(out)))
 
         return out_A
+
+
+class efficientnet_backbone(nn.Module):
+    def __init__(self, in_channels, hidden_dim, dropout):
+        super(efficientnet_backbone, self).__init__()
+
+        self.in_channels = in_channels
+        if in_channels == 1:
+            self.converter = nn.Conv2d(in_channels=3, out_channels=1, kernel_size=1)
+
+        self.efficient_net = timm.create_model("efficientnetv2_m", features_only=True)
+
+        self.upsample = nn.UpsamplingBilinear2d(scale_factor=2)
+        self.dropout = nn.Dropout(p=dropout)
+
+        self.upsampling_1 = nn.Sequential(
+            nn.Conv2d(512 + 176, 512, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(),
+        )
+        self.upsampling_2 = nn.Sequential(
+            nn.Conv2d(512 + 80, 256, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
+        )
+        self.upsampling_3 = nn.Sequential(
+            nn.Conv2d(256 + 48, 128, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+        )
+        self.upsampling_4 = nn.Sequential(
+            nn.Conv2d(128 + 24, 64, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+        )
+        self.trans_conv = nn.Sequential(
+            nn.Conv2d(64, hidden_dim // 2, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(hidden_dim // 2),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.Conv2d(hidden_dim // 2, hidden_dim, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(hidden_dim),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            nn.ReLU(),
+        )
+
+    def forward(self, x):
+        if self.in_channels == 1:
+            raise Exception("efficientnet_backbone supports only 3 channels.")
+
+        features = self.efficient_net(x)
+        features.reverse()
+
+        upsampled_1 = self.upsample(features[0])
+        upsampled_1 = torch.cat([upsampled_1, features[1]], dim=1)
+        upsampled_1 = self.upsampling_1(upsampled_1)
+        upsampled_1 = self.dropout(upsampled_1)
+
+        upsampled_2 = self.upsample(upsampled_1)
+        upsampled_2 = torch.cat([upsampled_2, features[2]], dim=1)
+        upsampled_2 = self.upsampling_2(upsampled_2)
+        upsampled_2 = self.dropout(upsampled_2)
+
+        upsampled_3 = self.upsample(upsampled_2)
+        upsampled_3 = torch.cat([upsampled_3, features[3]], dim=1)
+        upsampled_3 = self.upsampling_3(upsampled_3)
+        upsampled_3 = self.dropout(upsampled_3)
+
+        upsampled_4 = self.upsample(upsampled_3)
+        upsampled_4 = torch.cat([upsampled_4, features[4]], dim=1)
+        upsampled_4 = self.upsampling_4(upsampled_4)
+        upsampled_4 = self.dropout(upsampled_4)
+
+        out = self.trans_conv(upsampled_4)
+        out = self.dropout(out)
+
+        return out
