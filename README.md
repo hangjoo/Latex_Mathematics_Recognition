@@ -164,7 +164,7 @@ checkpoint: ""
 - prefix : log 파일과 checkpoint 파일을 저장할 디렉토리 경로
 - checkpoint : checkpoint 파일(.pth) 경로가 주어질 경우 해당 checkpoint 파일을 불러와 학습을 해당 checkpoint에서부터 진행
 
-## Out Results
+## Our Results
 
 |                Image                |                       Rendered                        |                        Predicted Text                        |
 | :---------------------------------: | :---------------------------------------------------: | :----------------------------------------------------------: |
