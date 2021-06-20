@@ -1,10 +1,10 @@
 # Latex Mathematics Expression Recognition
 
-## Members.
+## Members
 
 [김익재](https://github.com/ijjustinKim) | [남지인](https://github.com/zeen263) | [이주남](https://github.com/joon1230) | [이진성](https://github.com/ssun-g) | [장형주](https://github.com/hangjoo) | [최길희](https://github.com/grazerhee)
 
-## Main Features.
+## Main Features
 
 - 실험 커스터마이징을 위해 코드를 수정할 필요 없이 최대한 config yaml 내에서 수정하는 것으로 가능하도록 구현.
 - wandb 연동으로 실험 관리
@@ -18,13 +18,13 @@
 ```bash
 pip install -r requirements.txt
 ```
-2. 패키지 설치 후 configs 디렉토리에서 알맞은 모델 config을 선택한 뒤, 실험 환경에 맞게 인자를 설정(아래 Config.yaml 참고)
+2. ./configs/ 디렉토리에 있는 config 파일 또는 자신의 실험 환경에 맞는 config yaml 파일 설정
 3. train.py 실행
 ```bash
 python ./train.py -c ./config/YOUR_CONFIG.yaml
 ```
 
-## Config.yaml
+## Example Config.yaml
 
 ```yaml
 model:
@@ -60,7 +60,7 @@ scheduler:
 data:
   train:
     path:
-      - "{path where gt.txt located for training.}"
+      - "{path where gt.txt located for training}"
     transforms:
       - "Resize(height=32, width=100)"
       - "Normalize(always_apply=True)"
@@ -75,7 +75,7 @@ data:
     transforms:
       - null
   token_paths:
-    - "{Path where token file located.}"
+    - "{Path where token file located}"
   dataset_proportions:
     - 1.0
   random_split: True
