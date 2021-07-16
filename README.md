@@ -24,7 +24,7 @@ pip install -r requirements.txt
 python ./train.py -c ./config/YOUR_CONFIG.yaml
 ```
 
-## Example Config.yaml
+## Config.yaml Example
 
 ```yaml
 model:
